@@ -1,12 +1,13 @@
 package vn.edu.iuh.fit.thanhtuyen.labweek1.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "role")
+@NamedQueries({
+        @NamedQuery(name = "Role.findAll",
+                query = "SELECT r FROM Role r")
+})
 public class Role {
     @Id
     @Column(name = "role_id", nullable = false, length = 50)

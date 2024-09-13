@@ -1,4 +1,6 @@
 package vn.edu.iuh.fit.thanhtuyen.labweek1.repositories;
 
-public class LogRepository {
+public interface LogRepository {
+    void saveTimeLogin(String accountId);
+    void saveTimeLogout(String accountId);
 }

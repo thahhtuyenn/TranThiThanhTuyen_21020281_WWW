@@ -8,7 +8,9 @@ import java.util.Set;
 @Entity
 @Table(name = "account")
 @NamedQueries({
-        @NamedQuery(name = "Account.findByAccountIdAndPassword", query = "select a from Account a where a.accountId = :accountId and a.password = :password")
+        @NamedQuery(name = "Account.findByAccountIdAndPassword", query = "select a from Account a where a.accountId = :accountId and a.password = :password"),
+        @NamedQuery(name = "Account.findByAccountId", query = "select a from Account a where a.accountId = :accountId"),
+        @NamedQuery(name = "Account.findAccountNotIsAdmin", query = "select a from Account a where a.accountId not in (select ga.id.accountId from GrantAccess ga where ga.id.roleId = 'admin')"),
 })
 public class Account {
     @Id
@@ -30,7 +32,7 @@ public class Account {
     @Column(name = "status", nullable = false)
     private Byte status;
 
-    @OneToMany(mappedBy = "account")
+    @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
     private Set<GrantAccess> grantAccesses = new LinkedHashSet<>();
 
     public String getAccountId() {

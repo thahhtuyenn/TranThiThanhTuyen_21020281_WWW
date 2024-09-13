@@ -1,4 +1,6 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" isELIgnored="false" pageEncoding="ISO-8859-1" %>
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +11,15 @@
 <body>
     <div class="container">
         <h2>Login</h2>
+        <c:if test="${error} != null">
+            <div class='alert alert-danger' role='alert'>${error}</div>
+        </c:if>
+
+        <c:if test="${message} != null">
+            <div class='alert alert-success' role='alert'>${message}</div>
+        </c:if>
         <form action="login" method="post">
+            <input type="hidden" value="login" name="action">
             <div class="mb-3 mt-3">
                 <label for="account" class="form-label">Account:</label>
                 <input type="text" class="form-control" id="account" placeholder="Enter account" name="account">

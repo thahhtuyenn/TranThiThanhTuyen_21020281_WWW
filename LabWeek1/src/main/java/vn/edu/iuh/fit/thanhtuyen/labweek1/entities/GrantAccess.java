@@ -6,13 +6,21 @@ import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Table(name = "grant_access")
+@NamedQueries({
+        @NamedQuery(name = "GrantAccess.findByAccountIdAndRoleId",
+                query = "SELECT ga FROM GrantAccess ga WHERE ga.id.accountId = :accountId AND ga.id.roleId = :roleId")
+})
 public class GrantAccess {
     @EmbeddedId
     private GrantAccessId id;
 
+    @MapsId("roleId")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "role_id", nullable = false)
+    private Role role;
+
     @MapsId("accountId")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "account_id", nullable = false)
     private Account account;
 
@@ -28,6 +36,14 @@ public class GrantAccess {
 
     public void setId(GrantAccessId id) {
         this.id = id;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public Account getAccount() {
