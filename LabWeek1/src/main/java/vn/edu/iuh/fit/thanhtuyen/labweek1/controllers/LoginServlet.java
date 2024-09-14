@@ -1,5 +1,6 @@
 package vn.edu.iuh.fit.thanhtuyen.labweek1.controllers;
 
+import jakarta.inject.Inject;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -17,6 +18,10 @@ import java.util.List;
 
 @WebServlet(name = "loginServlet", urlPatterns = "/login")
 public class LoginServlet extends HttpServlet {
+    @Inject
+    private AccountService accountService;
+    @Inject
+    private RoleService roleService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -26,13 +31,13 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         String action = req.getParameter("action");
         if (action.equalsIgnoreCase("login")){
             String username = req.getParameter("account");
             String password = req.getParameter("pwd");
             PrintWriter out = resp.getWriter();
-            AccountService accountService = new AccountService();
-            RoleService roleService = new RoleService();
+
             Account accountLogin = accountService.findByAccountIdAndPassword(username, password);
             if (accountLogin != null){
                 HttpSession session = req.getSession();
@@ -42,6 +47,7 @@ public class LoginServlet extends HttpServlet {
                 List<Role> roles = roleService.findAll();
                 req.setAttribute("accounts", accounts);
                 req.setAttribute("roles", roles);
+                accountService.login(accountLogin.getAccountId());
                 if(accountLogin.getGrantAccesses().stream().anyMatch(grantAccess -> grantAccess.getRole().getRoleId().equalsIgnoreCase("admin"))) {
                     req.getRequestDispatcher("views/dashboard.jsp").forward(req, resp);
                 } else {
@@ -59,6 +65,7 @@ public class LoginServlet extends HttpServlet {
             }else {
                 session.removeAttribute("account");
                 req.setAttribute("message", "Logout successfully");
+                accountService.logout(accountLogout.getAccountId());
                 req.getRequestDispatcher("index.jsp").forward(req, resp);
             }
         }

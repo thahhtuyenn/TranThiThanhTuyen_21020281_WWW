@@ -18,10 +18,10 @@ public class Log {
     @Column(name = "login_time", nullable = false)
     private Instant loginTime;
 
-    @Column(name = "logout_time", nullable = false)
+    @Column(name = "logout_time")
     private Instant logoutTime;
 
-    @Column(name = "notes", nullable = false, length = 250)
+    @Column(name = "notes", length = 250)
     private String notes;
 
     public Long getId() {
