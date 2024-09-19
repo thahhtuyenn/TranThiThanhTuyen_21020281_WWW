@@ -90,5 +90,25 @@ public class Account {
     public void setGrantAccesses(Set<GrantAccess> grantAccesses) {
         this.grantAccesses = grantAccesses;
     }
+    public boolean isRole(String roleId) {
+        for (GrantAccess ga : grantAccesses) {
+            if (ga.getRole().getRoleId().equals(roleId)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
+    @Override
+    public String toString() {
+        return "Account{" +
+                "accountId='" + accountId + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", status=" + status +
+                ", grantAccesses=" + grantAccesses +
+                '}';
+    }
 }

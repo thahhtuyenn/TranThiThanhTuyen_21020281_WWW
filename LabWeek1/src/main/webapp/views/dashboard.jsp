@@ -36,6 +36,7 @@
         </nav>
 
         <c:if test="${not empty sessionScope.get('account')}">
+            <a class="btn btn-primary" href="users?action=add">ADD</a>
             <table class="table table-striped">
                 <thead>
                 <tr>
@@ -55,7 +56,7 @@
                         <td><c:out value="${account.getPhone()}"/></td>
                         <td>
                             <a class="btn btn-primary" href="users?action=edit&accountId=${ account.accountId }">Edit</a>
-                            <a class="btn btn-warning" href="">Delete</a>
+                            <a class="btn btn-warning" href="users?action=delete&accountId=${account.accountId}">Delete</a>
                         </td>
                     </tr>
                 </c:forEach>
