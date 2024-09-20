@@ -37,6 +37,7 @@
 
         <c:if test="${not empty sessionScope.get('account')}">
             <a class="btn btn-primary" href="users?action=add">ADD</a>
+
             <table class="table table-striped">
                 <thead>
                 <tr>

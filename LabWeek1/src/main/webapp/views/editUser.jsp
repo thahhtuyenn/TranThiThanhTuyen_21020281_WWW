@@ -18,28 +18,33 @@
 <div class="container">
     <h1>Edit user</h1>
     <form action="users" method="post">
-        <c:if test="${not empty sessionScope.get('account')}">
-            <input type="hidden" name="accountId" value="${account.accountId}">
+        <c:if test="${not empty sessionScope.get('accountEdit')}">
+            <input type="hidden" name="accountId" value="${accountEdit.accountId}">
             <input type="hidden" name="action" value="edit">
         </c:if>
-        <c:if test="${empty sessionScope.get('account')}">
+        <c:if test="${empty sessionScope.get('accountEdit')}">
             <input type="hidden" name="action" value="add">
+            <div class="mb-3">
+                <label for="accountID" class="form-label">Account ID</label>
+                <input type="text" class="form-control" id="accountID" name="accountID" value="${accountEdit.getAccountId()}">
+            </div>
         </c:if>
+
         <div class="mb-3">
             <label for="fullName" class="form-label">Full name</label>
-            <input type="text" class="form-control" id="fullName" name="fullName" value="${account.fullName}">
+            <input type="text" class="form-control" id="fullName" name="fullName" value="${accountEdit.getFullName()}">
         </div>
         <div class="mb-3">
             <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control" id="email" name="email" value="${account.email}">
+            <input type="email" class="form-control" id="email" name="email" value="${accountEdit.getEmail()}">
         </div>
         <div class="mb-3">
             <label for="phone" class="form-label">Phone</label>
-            <input type="text" class="form-control" id="phone" name="phone" value="${account.phone}">
+            <input type="text" class="form-control" id="phone" name="phone" value="${accountEdit.getPhone()}">
         </div>
         <div class="mb-3">
             <label for="roles" class="form-label">Roles</label>
-            <ul id="roles" style="list-style: none" >
+            <ul id="roles" style="list-style: none">
                 <c:forEach var="role" items="${roles}">
                     <li>
                         <input type="checkbox" id="${role.getRoleId()}" name="roles" value="${role.getRoleId()}"

@@ -8,4 +8,6 @@ public interface AccountRepository {
     Account findByAccountIdAndPassword(String accountId, String password);
     Account findByAccountId(String accountId);
     List<Account> findAccountNotIsAdmin();
+    Account save(Account account);
+    boolean delete(String accountId);
 }

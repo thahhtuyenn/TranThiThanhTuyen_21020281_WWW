@@ -10,7 +10,7 @@
                       value="jdbc:mariadb://localhost:3306/week01" />
             <property name="jakarta.persistence.jdbc.user" value="root" />
             <property name="jakarta.persistence.jdbc.password"
-                      value="root" />
+                      value="sapassword" />
             <property name="jakarta.persistence.jdbc.driver"
                       value="org.mariadb.jdbc.Driver" />
 

@@ -31,9 +31,10 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        //Lay ra tham so action
         String action = req.getParameter("action");
         if (action.equalsIgnoreCase("login")){
+            //Neu action = login thi xu ly dang nhap
             String username = req.getParameter("account");
             String password = req.getParameter("pwd");
             PrintWriter out = resp.getWriter();
@@ -43,11 +44,15 @@ public class LoginServlet extends HttpServlet {
                 HttpSession session = req.getSession();
                 session.setAttribute("account", accountLogin);
                 req.setAttribute("account", accountLogin);
+                //Lay ra danh sach account khong phai la admin va con hoat dong
                 List<Account> accounts = accountService.findAccountNotIsAdmin();
+                //Lay ra danh sach role
                 List<Role> roles = roleService.findAll();
                 req.setAttribute("accounts", accounts);
                 req.setAttribute("roles", roles);
                 accountService.login(accountLogin.getAccountId());
+                //Neu account co role la admin thi chuyen huong sang trang dashboard.jsp
+                //Neu account khong phai la admin thi chuyen huong sang trang user.jsp
                 if(accountLogin.getGrantAccesses().stream().anyMatch(grantAccess -> grantAccess.getRole().getRoleId().equalsIgnoreCase("admin"))) {
                     req.getRequestDispatcher("views/dashboard.jsp").forward(req, resp);
                 } else {
@@ -57,6 +62,7 @@ public class LoginServlet extends HttpServlet {
                 out.println("Login fail");
             }
         } else if (action.equalsIgnoreCase("logout")) {
+            //Neu action = logout thi xu ly dang xuat
             HttpSession session = req.getSession();
             Account accountLogout = (Account) session.getAttribute("account");
             if(accountLogout == null){

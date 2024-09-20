@@ -10,7 +10,7 @@ import java.util.Set;
 @NamedQueries({
         @NamedQuery(name = "Account.findByAccountIdAndPassword", query = "select a from Account a where a.accountId = :accountId and a.password = :password"),
         @NamedQuery(name = "Account.findByAccountId", query = "select a from Account a where a.accountId = :accountId"),
-        @NamedQuery(name = "Account.findAccountNotIsAdmin", query = "select a from Account a where a.accountId not in (select ga.id.accountId from GrantAccess ga where ga.id.roleId = 'admin')"),
+        @NamedQuery(name = "Account.findAccountNotIsAdmin", query = "select a from Account a where a.accountId not in (select ga.id.accountId from GrantAccess ga where ga.id.roleId = 'admin') AND a.status = 1"),
 })
 public class Account {
     @Id
@@ -35,6 +35,18 @@ public class Account {
     @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
     private Set<GrantAccess> grantAccesses = new LinkedHashSet<>();
 
+    public Account() {
+    }
+
+    public Account(String accountId, String fullName, String password, String email, String phone, Byte status, Set<GrantAccess> grantAccesses) {
+        this.accountId = accountId;
+        this.fullName = fullName;
+        this.password = password;
+        this.email = email;
+        this.phone = phone;
+        this.status = status;
+        this.grantAccesses = grantAccesses;
+    }
     public String getAccountId() {
         return accountId;
     }
@@ -90,6 +102,12 @@ public class Account {
     public void setGrantAccesses(Set<GrantAccess> grantAccesses) {
         this.grantAccesses = grantAccesses;
     }
+
+    /**
+     * Check if the account has a role
+     * @param roleId
+     * @return
+     */
     public boolean isRole(String roleId) {
         for (GrantAccess ga : grantAccesses) {
             if (ga.getRole().getRoleId().equals(roleId)) {

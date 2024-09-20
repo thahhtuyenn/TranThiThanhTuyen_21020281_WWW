@@ -9,6 +9,10 @@ import java.time.Instant;
 import java.util.List;
 
 public class LogRepositoryImpl implements LogRepository {
+    /**
+     * Luu thoi gian login cua account
+     * @param accountId
+     */
     @Override
     public void saveTimeLogin(String accountId) {
         try(EntityManager em = Connect.getEntityManager()){
@@ -46,6 +50,10 @@ public class LogRepositoryImpl implements LogRepository {
         }
     }
 
+    /**
+     * Luu thoi gian logout cua account
+     * @param accountId
+     */
     @Override
     public void saveTimeLogout(String accountId) {
         try(EntityManager em = Connect.getEntityManager()){

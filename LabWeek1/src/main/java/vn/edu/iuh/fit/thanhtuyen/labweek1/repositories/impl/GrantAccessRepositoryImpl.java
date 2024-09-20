@@ -8,6 +8,13 @@ import vn.edu.iuh.fit.thanhtuyen.labweek1.repositories.GrantAccessRepository;
 import java.util.List;
 
 public class GrantAccessRepositoryImpl implements GrantAccessRepository {
+    /**
+     * Tim kiem quyen truy cap theo accountId va roleId
+     *
+     * @param accountId
+     * @param roleId
+     * @return GrantAccess neu tim thay, null neu khong tim thay
+     */
     @Override
     public GrantAccess findByAccountIdAndRoleId(String accountId, String roleId) {
         try (EntityManager em = Connect.getEntityManager()){
@@ -20,6 +27,14 @@ public class GrantAccessRepositoryImpl implements GrantAccessRepository {
         }
     }
 
+    /**
+     * Luu quyen truy cap
+     *  - Neu quyen truy cap chua ton tai, insert quyen truy cap moi
+     *  - Neu quyen truy cap da ton tai, update quyen truy cap
+     *
+     * @param grantAccess
+     * @return GrantAccess
+     */
     @Override
     public GrantAccess save(GrantAccess grantAccess) {
         GrantAccess grantTemp = findByAccountIdAndRoleId(grantAccess.getId().getRoleId(), grantAccess.getId().getAccountId());

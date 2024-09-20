@@ -12,11 +12,11 @@ public class RoleService {
     @Inject
     private RoleRepository roleRepository;
 
-    public  RoleService(){
-        this.roleRepository = new RoleRepositoryImpl();
-
-    }
-
+    /**
+     * Lay danh sach Role
+     *
+     * @return List<Role>
+     */
     public List<Role> findAll() {
         return roleRepository.findAll();
     }

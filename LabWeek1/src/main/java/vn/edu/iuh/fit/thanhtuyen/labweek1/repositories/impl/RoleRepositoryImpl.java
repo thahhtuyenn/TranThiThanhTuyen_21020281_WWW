@@ -9,6 +9,10 @@ import vn.edu.iuh.fit.thanhtuyen.labweek1.repositories.RoleRepository;
 import java.util.List;
 
 public class RoleRepositoryImpl implements RoleRepository{
+    /**
+     * Lấy ra tất cả các Role
+     * @return List<Role>
+     */
     @Override
     public List<Role> findAll() {
         try (EntityManager em = Connect.getEntityManager()){
