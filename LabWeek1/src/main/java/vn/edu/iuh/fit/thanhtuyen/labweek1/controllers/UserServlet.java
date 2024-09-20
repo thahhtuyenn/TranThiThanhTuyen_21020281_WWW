@@ -66,7 +66,7 @@ public class UserServlet extends HttpServlet {
         String fullName = req.getParameter("fullName");
         String email = req.getParameter("email");
         String phone = req.getParameter("phone");
-        String accountId = req.getParameter("accountId");
+        String accountId = req.getParameter("accountID");
         HttpSession session = req.getSession();
         //Danh sach role duoc chon
         String[] roles = req.getParameterValues("roles");

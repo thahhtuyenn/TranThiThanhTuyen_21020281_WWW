@@ -81,6 +81,7 @@ public class AccountService {
     public  Account save(Account account) {
         account = accountRepostory.save(account);
         String accountId = account.getAccountId();
+        System.out.println(account.getGrantAccesses());
         account.getGrantAccesses().forEach(g -> {
             GrantAccessId grantAccessId = new GrantAccessId();
             grantAccessId.setAccountId(accountId);

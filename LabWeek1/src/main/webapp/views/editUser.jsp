@@ -48,7 +48,7 @@
                 <c:forEach var="role" items="${roles}">
                     <li>
                         <input type="checkbox" id="${role.getRoleId()}" name="roles" value="${role.getRoleId()}"
-                               <c:if test="${account.isRole(role.getRoleId())}">checked</c:if>>
+                               <c:if test="${accountEdit.isRole(role.getRoleId())}">checked</c:if>>
                         <label for="${role.getRoleId()}">${role.getRoleName()}</label>
                     </li>
                 </c:forEach>
