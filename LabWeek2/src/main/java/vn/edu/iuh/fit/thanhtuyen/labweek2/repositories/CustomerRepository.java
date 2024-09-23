@@ -1,6 +1,6 @@
 package vn.edu.iuh.fit.thanhtuyen.labweek2.repositories;
 
-import vn.edu.iuh.fit.thanhtuyen.labweek2.models.Customer;
+import vn.edu.iuh.fit.thanhtuyen.labweek2.entities.Customer;
 
 import java.util.List;
 import java.util.Optional;

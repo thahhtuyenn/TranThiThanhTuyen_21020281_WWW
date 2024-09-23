@@ -3,9 +3,8 @@ package vn.edu.iuh.fit.thanhtuyen.labweek2.repositories.impl;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
-import vn.edu.iuh.fit.thanhtuyen.labweek2.models.Customer;
+import vn.edu.iuh.fit.thanhtuyen.labweek2.entities.Customer;
 import vn.edu.iuh.fit.thanhtuyen.labweek2.repositories.CustomerRepository;
-import vn.edu.iuh.fit.thanhtuyen.labweek2.utils.AppUtils;
 
 import java.util.List;
 import java.util.Optional;

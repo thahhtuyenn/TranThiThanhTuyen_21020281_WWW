@@ -1,10 +1,8 @@
-package vn.edu.iuh.fit.thanhtuyen.labweek2.models;
+package vn.edu.iuh.fit.thanhtuyen.labweek2.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import vn.edu.iuh.fit.thanhtuyen.labweek2.enums.EmployeeStatus;
 
 import java.time.LocalDateTime;

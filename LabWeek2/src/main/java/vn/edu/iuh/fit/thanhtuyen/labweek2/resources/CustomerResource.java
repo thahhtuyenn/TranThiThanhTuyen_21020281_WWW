@@ -1,10 +1,10 @@
-package vn.edu.iuh.fit.thanhtuyen.labweek2.resource;
+package vn.edu.iuh.fit.thanhtuyen.labweek2.resources;
 
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import vn.edu.iuh.fit.thanhtuyen.labweek2.models.Customer;
+import vn.edu.iuh.fit.thanhtuyen.labweek2.entities.Customer;
 import vn.edu.iuh.fit.thanhtuyen.labweek2.services.CustomerService;
 import vn.edu.iuh.fit.thanhtuyen.labweek2.utils.AppUtils;
 
@@ -46,5 +46,15 @@ public class CustomerResource {
                     .entity(AppUtils.SERVER_ERROR)
                     .build();
         }
+    }
+
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response update(Customer customer) {
+        customer = customerService.save(customer);
+        return Response.ok()
+                .entity(customer)
+                .build();
+
     }
 }

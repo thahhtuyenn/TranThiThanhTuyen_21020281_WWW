@@ -1,7 +1,7 @@
 package vn.edu.iuh.fit.thanhtuyen.labweek2.services.impl;
 
 import jakarta.inject.Inject;
-import vn.edu.iuh.fit.thanhtuyen.labweek2.models.Customer;
+import vn.edu.iuh.fit.thanhtuyen.labweek2.entities.Customer;
 import vn.edu.iuh.fit.thanhtuyen.labweek2.repositories.CustomerRepository;
 import vn.edu.iuh.fit.thanhtuyen.labweek2.services.CustomerService;
 

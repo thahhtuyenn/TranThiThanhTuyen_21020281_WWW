@@ -1,9 +1,7 @@
-package vn.edu.iuh.fit.thanhtuyen.labweek2.models;
+package vn.edu.iuh.fit.thanhtuyen.labweek2.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;

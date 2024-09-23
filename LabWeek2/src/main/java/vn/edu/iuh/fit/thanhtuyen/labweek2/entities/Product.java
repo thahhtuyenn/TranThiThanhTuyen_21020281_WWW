@@ -1,4 +1,4 @@
-package vn.edu.iuh.fit.thanhtuyen.labweek2.models;
+package vn.edu.iuh.fit.thanhtuyen.labweek2.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
