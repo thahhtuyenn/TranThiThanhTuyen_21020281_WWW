@@ -13,6 +13,11 @@ import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
+@NamedQueries({
+        @NamedQuery(name = "Employee.findAll", query = "SELECT e FROM Employee e"),
+        @NamedQuery(name = "Employee.findByStatus", query = "SELECT e FROM Employee e WHERE e.status = :status")
+
+})
 public class Employee {
 
     @Id

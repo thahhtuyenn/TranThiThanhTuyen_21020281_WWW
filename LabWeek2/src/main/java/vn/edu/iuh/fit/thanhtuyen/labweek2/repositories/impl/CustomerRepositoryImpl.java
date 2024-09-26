@@ -5,6 +5,7 @@ import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import vn.edu.iuh.fit.thanhtuyen.labweek2.entities.Customer;
 import vn.edu.iuh.fit.thanhtuyen.labweek2.repositories.CustomerRepository;
+import vn.edu.iuh.fit.thanhtuyen.labweek2.utils.AppUtils;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,7 +13,7 @@ import java.util.Optional;
 @Transactional
 public class CustomerRepositoryImpl implements CustomerRepository {
 
-    @PersistenceContext(unitName = "LabWeek2")
+    @PersistenceContext(unitName = AppUtils.PERSISTENCE_UNIT_NAME)
     private EntityManager em;
 
     @Override
