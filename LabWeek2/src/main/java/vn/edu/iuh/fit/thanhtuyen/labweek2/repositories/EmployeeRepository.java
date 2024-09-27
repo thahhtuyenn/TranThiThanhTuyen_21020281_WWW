@@ -30,14 +30,12 @@ public interface EmployeeRepository {
     Employee save(Employee employee);
 
     /**
-     * Xoa nhan vien theo id
+     * Cap nhat trang thai cua nhan vien
      * @param id id cua nhan vien
-     * - Neu nhan vien ton tai va khong bi rang buoc voi bang khac thi xoa
-     *           va tra ve true
-     * - Neu nhan vien ton tai nhung bi rang buoc voi bang khac thi khong xoa va cap nhat status = -1
-     * - Neu nhan vien khong ton tai thi tra ve false
+     * @param status trang thai moi cua nhan vien
+     * @return nhan vien da duoc cap nhat
      */
-    boolean delete(Long id);
+    Employee updateStatus(Long id, EmployeeStatus status);
 
     /**
      * Tim nhan vien theo trang thai

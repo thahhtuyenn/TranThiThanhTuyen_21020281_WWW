@@ -33,24 +33,22 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
             employee.setStatus(EmployeeStatus.ACTIVE);
             em.persist(employee);
         } else {
-            Optional<Employee> e = findById(employee.getId());
-            if (e.isPresent()) {
-                Employee employeeUpdate = e.get();
-                employeeUpdate.setFullName(employee.getFullName());
-                employeeUpdate.setDob(employee.getDob());
-                employeeUpdate.setAddress(employee.getAddress());
-                employeeUpdate.setEmail(employee.getEmail());
-                employeeUpdate.setPhone(employee.getPhone());
-                employee = em.merge(employeeUpdate);
-            }
+            em.merge(employee);
         }
 
         return employee;
     }
 
     @Override
-    public boolean delete(Long id) {
-        return false;
+    public Employee updateStatus(Long id, EmployeeStatus status) {
+        Optional<Employee> employee = findById(id);
+        if (employee.isPresent()) {
+            Employee e = employee.get();
+            e.setStatus(status);
+            em.merge(e);
+            return e;
+        }
+        return null;
     }
 
     @Override

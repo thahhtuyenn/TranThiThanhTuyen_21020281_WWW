@@ -29,18 +29,10 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 
     @Override
     public Customer save(Customer customer) {
-        if(customer.getId() == null){
+        if (customer.getId() == null) {
             em.persist(customer);
-        }else {
-            Optional<Customer> c = findById(customer.getId());
-            if(c.isPresent()) {
-                Customer customerUpdate = c.get();
-                customerUpdate.setName(customer.getName());
-                customerUpdate.setAddress(customer.getAddress());
-                customerUpdate.setEmail(customer.getEmail());
-                customerUpdate.setPhone(customer.getPhone());
-                customer = em.merge(customerUpdate);
-            }
+        } else {
+            em.merge(customer);
         }
         return customer;
     }
@@ -48,7 +40,7 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     @Override
     public boolean delete(Long id) {
         Optional<Customer> c = findById(id);
-        if(c.isPresent()) {
+        if (c.isPresent()) {
             em.remove(c.get());
             return true;
         }

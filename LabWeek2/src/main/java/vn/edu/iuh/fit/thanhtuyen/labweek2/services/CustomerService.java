@@ -1,5 +1,6 @@
 package vn.edu.iuh.fit.thanhtuyen.labweek2.services;
 
+import vn.edu.iuh.fit.thanhtuyen.labweek2.dtos.CustomerDto;
 import vn.edu.iuh.fit.thanhtuyen.labweek2.entities.Customer;
 
 import java.util.List;
@@ -9,14 +10,14 @@ public interface CustomerService {
      * Tim tat ca khach hang
      * @return danh sach khach hang
      */
-    List<Customer> findAll();
+    List<CustomerDto> findAll();
 
     /**
      * Tim khach hang theo id
      * @param id id cua khach hang
      * @return khach hang
      */
-    Customer findById(Long id);
+    CustomerDto findById(Long id);
 
     /**
      * Luu khach hang
@@ -25,7 +26,7 @@ public interface CustomerService {
      * @param customer: thong tin khach hang
      * @return khach hang da duoc luu
      */
-    Customer save(Customer customer);
+    CustomerDto save(CustomerDto customer);
 
     /**
      * Xoa khach hang theo id

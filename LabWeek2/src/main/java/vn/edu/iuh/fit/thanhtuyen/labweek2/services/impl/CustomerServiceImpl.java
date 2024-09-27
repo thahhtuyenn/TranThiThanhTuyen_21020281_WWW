@@ -1,34 +1,46 @@
 package vn.edu.iuh.fit.thanhtuyen.labweek2.services.impl;
 
 import jakarta.inject.Inject;
+import vn.edu.iuh.fit.thanhtuyen.labweek2.dtos.CustomerDto;
 import vn.edu.iuh.fit.thanhtuyen.labweek2.entities.Customer;
+import vn.edu.iuh.fit.thanhtuyen.labweek2.mappers.CustomerMapper;
 import vn.edu.iuh.fit.thanhtuyen.labweek2.repositories.CustomerRepository;
 import vn.edu.iuh.fit.thanhtuyen.labweek2.services.CustomerService;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class CustomerServiceImpl implements CustomerService {
 
     @Inject
     private CustomerRepository customerRepository;
+    @Inject
+    private CustomerMapper customerMapper;
 
 
     @Override
-    public List<Customer> findAll() {
-        return customerRepository.findAll();
+    public List<CustomerDto> findAll() {
+        return customerRepository.findAll().stream().map(customerMapper::toDto).collect(Collectors.toList());
     }
 
     @Override
-    public Customer findById(Long id) {
-        return customerRepository.findById(id).orElse(null);
+    public CustomerDto findById(Long id) {
+        Optional<Customer> customer = customerRepository.findById(id);
+        return customer.map(customerMapper::toDto).orElse(null);
     }
 
     @Override
-    public Customer save(Customer customer) {
-        if (customer != null) {
-            return customerRepository.save(customer);
+    public CustomerDto save(CustomerDto customerDto) {
+        Customer customer = customerMapper.toEntity(customerDto);
+        if (customerDto.getId() != null) {
+            Customer oldCustomer = customerRepository.findById(customerDto.getId()).orElse(null);
+            if (oldCustomer != null) {
+                customer = customerMapper.partialUpdate(customerDto, oldCustomer);
+            }
         }
-        return null;
+        customer = customerRepository.save(customer);
+        return customerMapper.toDto(customer);
     }
 
     @Override

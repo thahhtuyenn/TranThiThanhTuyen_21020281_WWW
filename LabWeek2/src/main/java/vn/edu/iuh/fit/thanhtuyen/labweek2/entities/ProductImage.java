@@ -3,10 +3,16 @@ package vn.edu.iuh.fit.thanhtuyen.labweek2.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
+
 @Entity
 @Table(name = "product_images")
 @NoArgsConstructor
 @AllArgsConstructor
+@NamedQueries({
+        @NamedQuery(name = "ProductImage.findByProductId",
+                query = "SELECT pi FROM ProductImage pi WHERE pi.product.id = :productId")
+})
 public class ProductImage {
 
     @Id
@@ -20,8 +26,8 @@ public class ProductImage {
     @Column(name = "path", length = 250)
     private String path;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id", referencedColumnName = "product_id")
     private Product product;
 
     // Getters và Setters

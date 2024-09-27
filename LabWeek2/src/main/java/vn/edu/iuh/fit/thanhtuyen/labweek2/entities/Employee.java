@@ -3,8 +3,11 @@ package vn.edu.iuh.fit.thanhtuyen.labweek2.entities;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import vn.edu.iuh.fit.thanhtuyen.labweek2.converters.EmployeeStatusConverter;
+import vn.edu.iuh.fit.thanhtuyen.labweek2.converters.ObjectMapperContextResolver;
 import vn.edu.iuh.fit.thanhtuyen.labweek2.enums.EmployeeStatus;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -18,7 +21,7 @@ import java.util.List;
         @NamedQuery(name = "Employee.findByStatus", query = "SELECT e FROM Employee e WHERE e.status = :status")
 
 })
-public class Employee {
+public class Employee  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,6 +45,7 @@ public class Employee {
 
     @Column(name = "status")
     @Enumerated(EnumType.ORDINAL)
+    @Convert(converter = EmployeeStatusConverter.class)
     private EmployeeStatus status;
 
     @OneToMany(mappedBy = "employee")

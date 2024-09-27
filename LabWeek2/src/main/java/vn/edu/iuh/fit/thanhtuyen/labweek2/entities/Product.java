@@ -2,16 +2,24 @@ package vn.edu.iuh.fit.thanhtuyen.labweek2.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import vn.edu.iuh.fit.thanhtuyen.labweek2.converters.ProductStatusConverter;
 import vn.edu.iuh.fit.thanhtuyen.labweek2.enums.ProductStatus;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name = "products")
-
 @NoArgsConstructor
 @AllArgsConstructor
-public class Product {
+@NamedQueries({
+        @NamedQuery(name = "Product.findByManufacturer",
+                query = "SELECT p FROM Product p WHERE p.manufacturer = :manufacturer"),
+        @NamedQuery(name = "Product.findByName", query = "SELECT p FROM Product p WHERE p.name = :name"),
+        @NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p"),
+        @NamedQuery(name = "Product.findByStatus", query = "SELECT p FROM Product p WHERE p.status = :status")
+})
+public class Product{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,13 +37,12 @@ public class Product {
 
     @Column(name = "status")
     @Enumerated(EnumType.ORDINAL)
+    @Convert(converter = ProductStatusConverter.class)
     private ProductStatus status;
 
     @Column(name = "unit", length = 25)
     private String unit;
 
-    @OneToMany(mappedBy = "product")
-    private List<OrderDetail> orderDetails;
 
     @OneToMany(mappedBy = "product")
     private List<ProductImage> productImages;
@@ -91,14 +98,6 @@ public class Product {
 
     public void setUnit(String unit) {
         this.unit = unit;
-    }
-
-    public List<OrderDetail> getOrderDetails() {
-        return orderDetails;
-    }
-
-    public void setOrderDetails(List<OrderDetail> orderDetails) {
-        this.orderDetails = orderDetails;
     }
 
     public List<ProductImage> getProductImages() {

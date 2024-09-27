@@ -4,6 +4,7 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import vn.edu.iuh.fit.thanhtuyen.labweek2.dtos.CustomerDto;
 import vn.edu.iuh.fit.thanhtuyen.labweek2.entities.Customer;
 import vn.edu.iuh.fit.thanhtuyen.labweek2.services.CustomerService;
 import vn.edu.iuh.fit.thanhtuyen.labweek2.utils.AppUtils;
@@ -18,7 +19,7 @@ public class CustomerResource {
 
     @GET
     public Response getCustomers() {
-        List<Customer> customers = customerService.findAll();
+        List<CustomerDto> customers = customerService.findAll();
         return Response.ok()
                 .entity(customers)
                 .build();
@@ -27,7 +28,7 @@ public class CustomerResource {
     @GET
     @Path("/{id}")
     public Response getCustomerById(@PathParam("id") Long id) {
-        Customer customer = customerService.findById(id);
+        CustomerDto customer = customerService.findById(id);
         return Response.ok()
                 .entity(customer)
                 .build();
@@ -35,7 +36,7 @@ public class CustomerResource {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response create(Customer customer) {
+    public Response create(CustomerDto customer) {
         try {
             customer = customerService.save(customer);
             return Response.status(Response.Status.CREATED)
@@ -50,7 +51,7 @@ public class CustomerResource {
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response update(Customer customer) {
+    public Response update(CustomerDto customer) {
         customer = customerService.save(customer);
         return Response.ok()
                 .entity(customer)

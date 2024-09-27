@@ -3,11 +3,17 @@ package vn.edu.iuh.fit.thanhtuyen.labweek2.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
+
 @Entity
 @Table(name = "product_prices")
 
 @NoArgsConstructor
 @AllArgsConstructor
+@NamedQueries({
+        @NamedQuery(name = "ProductPrice.findByProductId", query = "SELECT p FROM ProductPrice p WHERE p.product.id = :productId"),
+        @NamedQuery(name = "ProductPrice.findLastPriceByProductId", query = "SELECT p FROM ProductPrice p WHERE p.product.id = :productId ORDER BY p.id.priceDateTime DESC")
+})
 public class ProductPrice {
     @EmbeddedId
     private ProductPriceId id;

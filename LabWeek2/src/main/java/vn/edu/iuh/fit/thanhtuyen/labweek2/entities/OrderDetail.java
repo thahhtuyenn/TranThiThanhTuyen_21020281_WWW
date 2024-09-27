@@ -4,6 +4,8 @@ package vn.edu.iuh.fit.thanhtuyen.labweek2.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
+
 @Entity
 @Table(name = "order_details")
 @NoArgsConstructor
