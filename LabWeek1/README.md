@@ -13,7 +13,7 @@ tương ứng.
 - Hiển thị danh sách account không phải là ADMIN 
 - Thêm 1 user mới và cấp quyền cho user
 - Cập nhật thông tin account 
-- Xóa 1 account
+- Xóa 1 account \
 ** Khi người dùng đăng nhập hoặc đăng xuất tài khoản, hệ thống lưu lại thời gian login (logout).
 ## 👤Tác giả
 
