@@ -37,7 +37,10 @@ dependencies {
     implementation 'org.mapstruct:mapstruct:1.5.0.Final'
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.0.Final'
     implementation 'jakarta.enterprise:jakarta.enterprise.cdi-api:4.0.1'
-
+    compileOnly('jakarta.servlet:jakarta.servlet-api:6.0.0')
+    // JSP
+    implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:2.0.0'
+    implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl:2.0.0'
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")

@@ -62,4 +62,10 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
         return null;
     }
+
+    @Override
+    public EmployeeDto findByPhone(String phone) {
+        Optional<Employee> eop = employeeRepository.findByPhone(phone);
+        return eop.map(employeeMapper::toDto).orElse(null);
+    }
 }

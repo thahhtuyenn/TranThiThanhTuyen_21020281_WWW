@@ -57,4 +57,11 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
                 .setParameter("status", status)
                 .getResultList();
     }
+
+    @Override
+    public Optional<Employee> findByPhone(String phone) {
+        return Optional.of(em.createNamedQuery("Employee.findByPhone", Employee.class)
+                .setParameter("phone", phone)
+                .getSingleResult());
+    }
 }

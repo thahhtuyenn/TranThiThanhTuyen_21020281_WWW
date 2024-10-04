@@ -87,4 +87,13 @@ public class EmployeeResource {
         }
     }
 
+    @GET
+    @Path("/searchEmployeeByPhone/phone={phone}")
+    public Response searchEmployeeByPhone(@PathParam("phone") String phone) {
+        EmployeeDto employee = employeeService.findByPhone(phone);
+        return Response.ok()
+                .entity(employee)
+                .build();
+    }
+
 }

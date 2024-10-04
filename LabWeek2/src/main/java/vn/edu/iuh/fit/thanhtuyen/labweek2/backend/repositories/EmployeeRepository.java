@@ -43,4 +43,11 @@ public interface EmployeeRepository {
      * @return danh sach nhan vien
      */
     List<Employee> findByStatus(EmployeeStatus status);
+
+    /**
+     * Tim nhan vien theo so dien thoai
+     * @param phone so dien thoai cua nhan vien
+     * @return nhan vien
+     */
+    Optional<Employee> findByPhone(String phone);
 }

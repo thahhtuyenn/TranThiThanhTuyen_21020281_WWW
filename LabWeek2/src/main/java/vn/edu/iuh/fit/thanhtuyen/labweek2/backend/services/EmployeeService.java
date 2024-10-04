@@ -42,4 +42,11 @@ public interface EmployeeService {
      * @return nhan vien da duoc cap nhat
      */
     EmployeeDto updateStatus(Long id, EmployeeStatus status);
+
+    /**
+     * Tim nhan vien theo so dien thoai
+     * @param phone so dien thoai
+     * @return nhan vien
+     */
+    EmployeeDto findByPhone(String phone);
 }
