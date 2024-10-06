@@ -45,4 +45,13 @@ public class OrderResource {
                     .build();
         }
     }
+
+    @GET
+    @Path("/employeeId={employeeId}")
+    public Response getByEmployeeId(@PathParam("employeeId") Long employeeId) {
+        List<OrderDto> orders = orderService.findByEmployee(employeeId);
+        return Response.ok()
+                .entity(orders)
+                .build();
+    }
 }

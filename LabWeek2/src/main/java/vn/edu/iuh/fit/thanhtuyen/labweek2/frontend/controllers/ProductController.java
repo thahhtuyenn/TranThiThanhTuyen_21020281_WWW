@@ -67,6 +67,7 @@ public class ProductController extends HttpServlet {
         }
         req.setAttribute("employee", employee);
         req.setAttribute("products", products);
+        req.setAttribute("cart", shoppingCart);
         req.getRequestDispatcher("views/products.jsp").forward(req, resp);
     }
 }

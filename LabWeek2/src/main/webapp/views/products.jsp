@@ -39,7 +39,9 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <div class="sidebar-brand-text mx-3">Product</div>
+        <div style="display: flex; align-items: center; justify-content: center">
+            <h2 style="color: #fff; font-weight: bold">Products</h2>
+        </div>
 
         <!-- Divider -->
         <hr class="sidebar-divider my-0">
@@ -70,7 +72,9 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="products">Products</a>
                     <a class="collapse-item" href="shopping-cart">Shopping cart</a>
-                    <a class="collapse-item" href="#">Orders</a>
+                    <c:if test="${not empty sessionScope.get('cart')}">
+                        <a class="collapse-item" href="orders">Orders</a>
+                    </c:if>
                 </div>
             </div>
         </li>
@@ -101,47 +105,53 @@
             <!-- Begin Page Content -->
             <div class="container-fluid">
                 <div class="row">
-                    <c:forEach var="product" items="${products}" varStatus="status">
-                    <!-- M?i item s? ???c ??t trong m?t c?t v?i l?p Bootstrap -->
-                    <div class="col-md-3">
-                        <div class="card mb-4">
-                            <div class="card-body"
-                                 style="height: 200px; background-color: #96dbe4; display: flex; flex-direction: row">
-                                <img src="${product.getImage()}" style="height: 140px; width: 140px;">
-                                <div style="height: 200px; align-items: center; justify-content: space-between; margin-left: 10px">
-                                    <h5 style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${product.getName()}</h5>
-                                    <span>Manufacturer: ${product.manufacturer}</span> <br>
-                                    <span>Price: ${product.getPrice()}</span>
-                                        <%--                                    <div>--%>
-                                        <%--                                        <div data-mdb-input-init class="form-outline"--%>
-                                        <%--                                             style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; margin-bottom: 5px">--%>
-                                        <%--                                            <label class="form-label" for="quantity">Quantity: </label>--%>
-                                        <%--                                            <input type="number" id="quantity" name="quantity" class="form-control"  min="1" max="10" style="margin-left: 10px; width: 80px" />--%>
-                                        <%--                                        </div>--%>
-                                        <%--                                        <a class="btn btn-primary"--%>
-                                        <%--                                           href="products?action=addToCart&productId=${ product.id }">Add to cart</a>--%>
-                                        <%--                                    </div>--%>
-                                    <form action="products" method="get">
-                                        <input type="hidden" name="action" value="addToCart"/>
-                                        <input type="hidden" name="productId" value="${product.id}"/>
-                                        <div class="mb-3">
-                                            <label for="quantity">Quantity: </label>
-                                            <input type="number" name="quantity" id="quantity" min="1" max="10"
-                                                   style="margin-bottom: 5px; width: 80px"/>
+                    <div class="col-md-8">
+                        <div class="row">
+                            <c:forEach var="product" items="${products}" varStatus="status">
+                            <!-- M?i item s? ???c ??t trong m?t c?t v?i l?p Bootstrap -->
+                            <div class="col-md-3">
+                                <div class="card mb-4">
+                                    <div class="card-body"
+                                         style="height: 400px;
+                                         display: flex; flex-direction: column;
+                                         background-color: #96dbe4; border-radius: 5px;
+                                         justify-content: space-between; align-items: center;">
+                                        <img src="${product.getImage()}" style="height: 150px; width: 100%;">
+                                        <div style="height: 200px; width: 100%; align-items: center; justify-content: space-between;">
+                                            <h5 style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${product.getName()}</h5>
+                                            <span>Manufacturer: ${product.manufacturer}</span> <br>
+                                            <span>Price: ${product.getPrice()}</span>
+                                            <form action="products" method="get">
+                                                <input type="hidden" name="action" value="addToCart"/>
+                                                <input type="hidden" name="productId" value="${product.id}"/>
+                                                <div class="mb-3">
+                                                    <label for="quantity">Quantity: </label>
+                                                    <input type="number" name="quantity" id="quantity" min="1" max="10" value="1"
+                                                           style="margin-bottom: 5px; width: 80px"/>
+                                                </div>
+                                                <button class="btn btn-primary">Add to cart</button>
+                                            </form>
                                         </div>
-                                        <button class="btn btn-primary">Add to cart</button>
-                                    </form>
+                                    </div>
                                 </div>
+                            </div>
+
+                            <!-- Khi ?ã hi?n th? xong 4 c?t, t?o hàng m?i -->
+                            <c:if test="${(status.index + 1) % 4 == 0}">
+                        </div>
+                        <div class="row">
+                            </c:if>
+                            </c:forEach>
+                        </div>
+                    </div>
+                    <div class="col-md-4" style="background-color: #96dbe4; border-radius: 8px">
+                        <div class="row">
+                            <div class="col-md-12" style="height: 100px; display: flex; justify-content: space-between; align-items: center">
+                                <h3 style="color: #fff; text-align: center; font-weight: bold">Shopping cart</h3>
+                                <a href="orders" type="button" class="btn btn-primary">Order</a>
                             </div>
                         </div>
                     </div>
-
-                    <!-- Khi ?ã hi?n th? xong 4 c?t, t?o hàng m?i -->
-                    <c:if test="${(status.index + 1) % 4 == 0}">
-                </div>
-                <div class="row">
-                    </c:if>
-                    </c:forEach>
                 </div>
             </div>
             <!-- /.container-fluid -->

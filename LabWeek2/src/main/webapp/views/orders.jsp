@@ -40,7 +40,9 @@
 
         <!-- Sidebar - Brand -->
 
-        <div class="sidebar-brand-text mx-3">Order</div>
+        <div style="display: flex; align-items: center; justify-content: center">
+            <h2 style="color: #fff; font-weight: bold">Orders</h2>
+        </div>
 
         <!-- Divider -->
         <hr class="sidebar-divider my-0">
@@ -70,8 +72,10 @@
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="products">Products</a>
-                    <a class="collapse-item" href="#">Shopping cart</a>
-                    <a class="collapse-item" href="#">Orders</a>
+                    <a class="collapse-item" href="shopping-cart">Shopping cart</a>
+                    <c:if test="${not empty sessionScope.get('cart')}">
+                        <a class="collapse-item" href="orders">Orders</a>
+                    </c:if>
                 </div>
             </div>
         </li>
@@ -101,7 +105,30 @@
 
             <!-- Begin Page Content -->
             <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div style="height: 200px; width: 100%; background-color: #aaebd3">
 
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div>
+                                <h2>Create new order</h2>
+
+                            </div>
+                            <form action="orders" method="post">
+                                <div class="mb-3 mt-3">
+                                    <label for="email" class="form-label">Email:</label>
+                                    <input type="text" class="form-control" id="email" placeholder="Enter email" name="email">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="pwd" class="form-label">Password:</label>
+                                    <input type="text" class="form-control" id="pwd" placeholder="Enter password" name="pswd">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Create</button>
+                            </form>
+                        </div>
+                    </div>
             </div>
             <!-- /.container-fluid -->
 

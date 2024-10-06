@@ -51,7 +51,7 @@ public class OrderServiceImpl implements OrderService {
         Order orderE = orderMapper.toEntity(order);
 
         //Kiem tra order neu ton tai thi cap nhat
-        if (orderE.getId() != null)  {
+        if (orderE.getId() != null) {
             Order oldOrder = orderRepository.findById(orderE.getId()).orElse(null);
             if (oldOrder == null) {
                 orderE = orderMapper.partialUpdate(order, oldOrder);
@@ -76,7 +76,7 @@ public class OrderServiceImpl implements OrderService {
         List<OrderDetail> orderDetails = order.getOrderDetails().stream().map(orderDetailDto -> {
             OrderDetail orderDetail = orderDetailMapper.toEntity(orderDetailDto);
             Optional<Product> product = productRepository.findById(orderDetailDto.getProductId());
-            if (product.isPresent()){
+            if (product.isPresent()) {
                 orderDetail.setProduct(product.get());
                 ProductPrice productPrice = productPriceRepository.findLastPriceByProductId(product.get().getId());
                 orderDetail.setPrice(productPrice.getPrice());
@@ -88,5 +88,11 @@ public class OrderServiceImpl implements OrderService {
 
         orderE.setOrderDetails(orderDetails);
         return orderMapper.toDto(orderE);
+    }
+
+    @Override
+    public List<OrderDto> findByEmployee(Long employeeId) {
+        List<Order> orders = orderRepository.findByEmployeeId(employeeId);
+        return orders.stream().map(orderMapper::toDto).collect(Collectors.toList());
     }
 }

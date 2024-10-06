@@ -27,4 +27,11 @@ public interface OrderRepository {
      * @return don hang sau khi da them moi hoac cap nhat
      */
     Order save(Order order);
+
+    /**
+     * Tim don hang theo ma so nhan vien
+     * @param employeeId: ma so nhan vien
+     * @return danh sach don hang cua nhan vien co ma so employeeId
+     */
+    List<Order> findByEmployeeId(Long employeeId);
 }

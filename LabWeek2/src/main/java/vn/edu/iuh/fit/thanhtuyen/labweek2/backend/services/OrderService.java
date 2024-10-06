@@ -26,4 +26,6 @@ public interface OrderService {
      * @return order
      */
     OrderDto save(OrderDto order);
+
+    List<OrderDto> findByEmployee(Long employeeId);
  }

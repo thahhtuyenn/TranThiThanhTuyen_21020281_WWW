@@ -47,6 +47,7 @@ public class LoginController extends HttpServlet {
             }
         } else if (action.equals("logout")) {
             session.removeAttribute("employee");
+            session.removeAttribute("cart");
             req.getRequestDispatcher("index.jsp").forward(req, resp);
         }
     }
