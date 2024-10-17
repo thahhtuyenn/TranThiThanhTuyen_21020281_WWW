@@ -34,4 +34,11 @@ public interface CustomerRepository {
      * @param id id cua khach hang
      */
     boolean delete(Long id);
+
+    /**
+     * Tim khach hang theo so dien thoai
+     * @param phone so dien thoai cua khach hang
+     * @return khach hang
+     */
+    Customer findByPhone(String phone);
 }

@@ -46,4 +46,13 @@ public class CustomerRepositoryImpl implements CustomerRepository {
         }
         return false;
     }
+
+    @Override
+    public Customer findByPhone(String phone) {
+
+        List<Customer> customers = em.createNamedQuery("Customer.findByPhone", Customer.class)
+                .setParameter("phone", phone)
+                .getResultList();
+        return customers.isEmpty() ? null : customers.get(0);
+    }
 }

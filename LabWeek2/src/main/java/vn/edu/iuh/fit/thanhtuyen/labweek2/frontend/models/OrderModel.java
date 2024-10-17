@@ -1,22 +1,22 @@
 package vn.edu.iuh.fit.thanhtuyen.labweek2.frontend.models;
 
 import jakarta.ejb.Remote;
+import vn.edu.iuh.fit.thanhtuyen.labweek2.backend.dtos.CustomerDto;
+import vn.edu.iuh.fit.thanhtuyen.labweek2.backend.dtos.EmployeeDto;
 import vn.edu.iuh.fit.thanhtuyen.labweek2.backend.dtos.OrderDto;
+import vn.edu.iuh.fit.thanhtuyen.labweek2.frontend.entities.Cart;
 
 import java.util.List;
 
 @Remote
 public interface OrderModel {
-    /**
-     * Lay danh sach tat ca hoa don theo nhan vien
-     * @return danh sach hoa don
-     */
-    List<OrderDto> getOrders(Long employeeId);
 
     /**
      * Tao moi hoa don
-     * @param order: thong tin hoa don
+     * @param cart: thong tin hoa don
      * @return hoa don moi duoc tao
      */
-    OrderDto createOrder(OrderDto order);
+    OrderDto createOrder(Cart cart);
+
+
 }

@@ -71,10 +71,6 @@
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="products">Products</a>
-                    <a class="collapse-item" href="shopping-cart">Shopping cart</a>
-                    <c:if test="${not empty sessionScope.get('cart')}">
-                        <a class="collapse-item" href="orders">Orders</a>
-                    </c:if>
                 </div>
             </div>
         </li>
@@ -126,7 +122,8 @@
                                                 <input type="hidden" name="productId" value="${product.id}"/>
                                                 <div class="mb-3">
                                                     <label for="quantity">Quantity: </label>
-                                                    <input type="number" name="quantity" id="quantity" min="1" max="10" value="1"
+                                                    <input type="number" name="quantity" id="quantity" min="1" max="10"
+                                                           value="1"
                                                            style="margin-bottom: 5px; width: 80px"/>
                                                 </div>
                                                 <button class="btn btn-primary">Add to cart</button>
@@ -146,10 +143,42 @@
                     </div>
                     <div class="col-md-4" style="background-color: #96dbe4; border-radius: 8px">
                         <div class="row">
-                            <div class="col-md-12" style="height: 100px; display: flex; justify-content: space-between; align-items: center">
+                            <div class="col-md-12"
+                                 style="height: 100px; display: flex; justify-content: space-between; align-items: center">
                                 <h3 style="color: #fff; text-align: center; font-weight: bold">Shopping cart</h3>
                                 <a href="orders" type="button" class="btn btn-primary">Order</a>
                             </div>
+
+                            <table class="table table-borderless">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Product</th>
+                                    <th scope="col">Quantity</th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col">Total</th>
+                                    <th scope="col"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <c:forEach var="cartItem" items="${cart.cartDetails}">
+                                    <tr>
+                                        <td>${cartItem.product.name}</td>
+                                        <td>${cartItem.quantity}</td>
+                                        <td>${cartItem.price}</td>
+                                        <td>${cartItem.getMoney()}</td>
+                                        <td>
+                                            <form action="products" method="get">
+                                                <input type="hidden" name="action" value="removeFromCart"/>
+                                                <input type="hidden" name="productId" value="${cartItem.product.id}"/>
+                                                <button class="btn btn-danger">X</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                                </tbody>
+                            </table>
+
+
                         </div>
                     </div>
                 </div>

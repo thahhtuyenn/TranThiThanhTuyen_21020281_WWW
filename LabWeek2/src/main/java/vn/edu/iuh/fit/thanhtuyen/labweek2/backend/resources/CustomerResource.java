@@ -57,4 +57,13 @@ public class CustomerResource {
                 .build();
 
     }
+
+    @GET
+    @Path("/phone={phone}")
+    public Response getCustomerByPhone(@PathParam("phone") String phone) {
+        CustomerDto customer = customerService.findByPhone(phone);
+        return Response.ok()
+                .entity(customer)
+                .build();
+    }
 }

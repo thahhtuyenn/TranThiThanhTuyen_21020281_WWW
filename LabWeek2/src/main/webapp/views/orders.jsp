@@ -27,6 +27,8 @@
 
     <!-- Custom styles for this template-->
     <link href="<c:url value="/resources/css/sb-admin-2.min.css"/>" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </head>
 
@@ -72,10 +74,6 @@
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="products">Products</a>
-                    <a class="collapse-item" href="shopping-cart">Shopping cart</a>
-                    <c:if test="${not empty sessionScope.get('cart')}">
-                        <a class="collapse-item" href="orders">Orders</a>
-                    </c:if>
                 </div>
             </div>
         </li>
@@ -105,30 +103,120 @@
 
             <!-- Begin Page Content -->
             <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-8">
-                            <div style="height: 200px; width: 100%; background-color: #aaebd3">
-
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div>
-                                <h2>Create new order</h2>
-
-                            </div>
-                            <form action="orders" method="post">
-                                <div class="mb-3 mt-3">
-                                    <label for="email" class="form-label">Email:</label>
-                                    <input type="text" class="form-control" id="email" placeholder="Enter email" name="email">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="pwd" class="form-label">Password:</label>
-                                    <input type="text" class="form-control" id="pwd" placeholder="Enter password" name="pswd">
-                                </div>
-                                <button type="submit" class="btn btn-primary">Create</button>
-                            </form>
+                <div class="row">
+                    <div class="col-md-7">
+                        <div style="width: 100%; background-color: #96dbe4; padding: 20px">
+                            <h2>Order details</h2>
+                            <table class="table table-borderless">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Product</th>
+                                    <th scope="col">Quantity</th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col">Money</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <c:forEach items="${cart.cartDetails}" var="cart">
+                                    <tr>
+                                        <td>${cart.product.name}</td>
+                                        <td>${cart.quantity}</td>
+                                        <td>${cart.price}</td>
+                                        <td>${cart.getMoney()}</td>
+                                    </tr>
+                                </c:forEach>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
+                    <div class="col-md-5">
+                        <div>
+                            <h2>Create new order</h2>
+
+                        </div>
+                        <form action="orders" method="get" style="">
+                            <input type="hidden" name="action" value="searchCustomer"/>
+                            <div class="row">
+                                <div class="col col-md-9">
+                                    <label for="phone" class="form-label">Customer phone number:</label>
+                                    <input type="text" class="form-control" id="phone"
+                                           placeholder="Enter customer phone number"
+                                           name="phone">
+                                </div>
+                                <button type="submit" class="col btn btn-primary">
+                                    Search
+                                </button>
+                            </div>
+                        </form>
+
+                        <!-- Button to Open the Modal -->
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+                            New customer
+                        </button>
+
+                        <!-- The Modal -->
+                        <div class="modal" id="myModal">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+
+                                    <!-- Modal Header -->
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">New customer</h4>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                    </div>
+
+                                    <!-- Modal body -->
+                                    <div class="modal-body">
+                                        <form action="orders" method="post">
+                                            <input type="hidden" name="action" value="createCustomer"/>
+                                            <div class="mb-3">
+                                                <label for="name" class="form-label">Name:</label>
+                                                <input type="text" class="form-control" id="name" name="name" placeholder="Enter customer name">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="phoneCustomer" class="form-label">Phone:</label>
+                                                <input type="text" class="form-control" id="phoneCustomer" name="phoneCustomer" placeholder="Enter customer phone">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="address" class="form-label">Address:</label>
+                                                <input type="text" class="form-control" id="address" name="address" placeholder="Enter customer address">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="email" class="form-label">Email:</label>
+                                                <input type="email" class="form-control" id="email" name="email" placeholder="Enter customer email">
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Create</button>
+                                        </form>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <form action="orders" method="post">
+                            <input type="hidden" name="action" value="createOrder" />
+                            <div class="mb-3">
+                                <c:if test="${customer == null}">
+                                    <div class="alert alert-info" role="alert">
+                                        Customer not found!
+                                    </div>
+                                </c:if>
+                                <input type="hidden" value="${customer != null ? customer.id : null}" name="customerId" />
+                                <label for="customerName" class="form-label">Customer name:</label>
+                                <input type="text" class="form-control" id="customerName" name="customerName" contenteditable="false" value="${customer != null ? customer.name : ""}" />
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="totalMoney" class="form-label">Total money:</label>
+                                <input type="text" class="form-control" id="totalMoney" name="totalMoney" value="${cart.getTotal()}" contenteditable="false" />
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Create</button>
+                        </form>
+
+
+                    </div>
+                </div>
             </div>
             <!-- /.container-fluid -->
 

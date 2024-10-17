@@ -33,4 +33,11 @@ public interface CustomerService {
      * @return true neu xoa thanh cong, false neu khong xoa duoc
      */
     boolean delete(Long id);
+
+    /**
+     * Tim khach hang theo so dien thoai
+     * @param phone so dien thoai cua khach hang
+     * @return khach hang
+     */
+    CustomerDto findByPhone(String phone);
 }

@@ -47,4 +47,10 @@ public class CustomerServiceImpl implements CustomerService {
     public boolean delete(Long id) {
         return customerRepository.delete(id);
     }
+
+    @Override
+    public CustomerDto findByPhone(String phone) {
+        Customer customer = customerRepository.findByPhone(phone);
+        return customerMapper.toDto(customer);
+    }
 }
