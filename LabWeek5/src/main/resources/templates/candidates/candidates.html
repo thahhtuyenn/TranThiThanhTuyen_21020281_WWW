@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Listings</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- Header -->
+<header class="bg-light py-3 border-bottom">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center">
+            <!-- Search and Filter Area -->
+            <div class="d-flex flex-wrap gap-2 align-items-center">
+                <input type="text" class="form-control" placeholder="Tìm kiếm công việc" style="width: 200px;">
+                <select class="form-select" style="width: 150px;">
+                    <option selected>Thành phố</option>
+                    <option>Hà Nội</option>
+                    <option>Đà Nẵng</option>
+                    <option>Hồ Chí Minh</option>
+                </select>
+                <select class="form-select" style="width: 150px;">
+                    <option selected>Tên đường</option>
+                    <option>Nguyễn Huệ</option>
+                    <option>Trần Hưng Đạo</option>
+                    <option>Phạm Văn Đồng</option>
+                </select>
+                <select class="form-select" style="width: 150px;">
+                    <option selected>Số năm kinh nghiệm</option>
+                    <option>0-1 năm</option>
+                    <option>1-3 năm</option>
+                    <option>Trên 3 năm</option>
+                </select>
+                <button class="btn btn-primary">Tìm kiếm</button>
+            </div>
+            <!-- User Info Area -->
+            <div class="d-flex align-items-center">
+                <span class="me-3"><strong>[[${candidate.fullName}]]</strong></span>
+                <form action="login" method="post">
+                    <input type="hidden" name="action" value="logout">
+                    <button class="btn btn-outline-danger">Đăng xuất</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Main Content -->
+<main class="container my-4">
+    <div class="row">
+        <!-- Job Card Example -->
+        <div class="col-md-4 mb-3">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Tên công việc: Web Developer</h5>
+                    <p class="card-text">Tên công ty: Công ty A</p>
+                    <p class="card-text">Thành phố: Hà Nội</p>
+                    <p class="card-text">Kinh nghiệm: 2 năm</p>
+                </div>
+            </div>
+        </div>
+        <!-- Repeat similar job cards as needed -->
+        <div class="col-md-4 mb-3">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Tên công việc: Data Analyst</h5>
+                    <p class="card-text">Tên công ty: Công ty B</p>
+                    <p class="card-text">Thành phố: Đà Nẵng</p>
+                    <p class="card-text">Kinh nghiệm: 1 năm</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Footer -->
+<footer class="bg-light text-center py-3 border-top" style="position: absolute; bottom: 0; left: 0; right: 0">
+    <div class="container">
+        <p class="mb-0">© 2024 Job Portal. All Rights Reserved.</p>
+    </div>
+</footer>
+
+<!-- Bootstrap JavaScript (Optional) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
