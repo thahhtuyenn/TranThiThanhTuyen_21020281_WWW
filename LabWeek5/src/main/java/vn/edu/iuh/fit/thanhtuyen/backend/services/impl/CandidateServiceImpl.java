@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import vn.edu.iuh.fit.thanhtuyen.backend.dtos.CandidateDto;
+import vn.edu.iuh.fit.thanhtuyen.backend.dtos.PageDTO;
 import vn.edu.iuh.fit.thanhtuyen.backend.mappers.CandidateMapper;
 import vn.edu.iuh.fit.thanhtuyen.backend.models.Candidate;
 import vn.edu.iuh.fit.thanhtuyen.backend.repositories.CandidateRepository;
@@ -51,5 +52,17 @@ public class CandidateServiceImpl implements CandidateService {
     public CandidateDto findByEmailAndPhone(String email, String phone) {
         Candidate candidate = candidateRepository.findByEmailAndPhone(email, phone);
         return candidateMapper.toDto(candidate);
+    }
+
+    @Override
+    public PageDTO<CandidateDto> findCandidateMatchingJob(Long jobId, int per, int page, int size) {
+        Page<Candidate> candidates = candidateRepository.findCandidateMatchingJob(jobId, per, PageRequest.of(page, size));
+        PageDTO<CandidateDto> pageDTO = new PageDTO<>();
+        List<CandidateDto> candidateDtos = candidates.stream().map(candidateMapper::toDto).collect(Collectors.toList());
+        pageDTO.setContent(candidateDtos);
+        pageDTO.setTotalPages(candidates.getTotalPages());
+        pageDTO.setSize(candidates.getSize());
+        pageDTO.setPage(candidates.getNumber());
+        return pageDTO;
     }
 }

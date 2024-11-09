@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import vn.edu.iuh.fit.thanhtuyen.backend.dtos.CandidateDto;
+import vn.edu.iuh.fit.thanhtuyen.backend.dtos.PageDTO;
 import vn.edu.iuh.fit.thanhtuyen.backend.services.CandidateService;
 
 import java.util.List;
@@ -50,6 +51,16 @@ public class CandidateResource {
         try {
             CandidateDto candidateDto = candidateService.findByEmailAndPhone(email, phone);
             return ResponseEntity.ok(candidateDto);
+        }catch (Exception e) {
+            throw new Exception("Error: " + e.getMessage(), e);
+        }
+    }
+
+    @GetMapping("/candidateMatchingJob")
+    public ResponseEntity<PageDTO<CandidateDto>> findCandidateMatchingJob(@RequestParam Long jobId, @RequestParam int per, @RequestParam int page, @RequestParam int size) throws Exception {
+        try {
+            PageDTO<CandidateDto> candidates = candidateService.findCandidateMatchingJob(jobId, per, page, size);
+            return ResponseEntity.ok(candidates);
         }catch (Exception e) {
             throw new Exception("Error: " + e.getMessage(), e);
         }

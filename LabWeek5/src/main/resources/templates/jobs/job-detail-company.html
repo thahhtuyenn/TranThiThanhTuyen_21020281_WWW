@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Job detail</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        /* Tùy chỉnh nút trong sidebar */
+        .sidebar-link {
+            height: 45px;
+            display: flex;
+            align-items: center;
+            border-top: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<!-- Header -->
+<header class="bg-light py-3 border-bottom">
+    <div class="container">
+        <div class="d-flex justify-content-end align-items-center">
+            <!-- User Info Area -->
+            <div class="d-flex align-items-center">
+                <a class="me-3" style="text-decoration: none; color: inherit;" th:href="@{#}">
+                    <strong>[[${companyLogin.compName}]]</strong>
+                </a>
+                <form action="/login" method="post">
+                    <input type="hidden" name="action" value="logout">
+                    <button class="btn btn-outline-danger">Logout</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <nav class="col-md-2 bg-light p-3 vh-100 position-fixed">
+            <h5>Company</h5>
+            <div class="nav flex-column">
+                <a class="btn btn-link text-start sidebar-link bg-primary text-white" th:href="@{/companies}">Company home</a>
+                <a class="btn btn-link text-start sidebar-link bg-primary text-white">Create job</a>
+            </div>
+
+            <!-- Thông tin công ty -->
+            <div class="company-info mt-4">
+                <h4>Company Details</h4>
+                <p><strong>Location:</strong>
+                    <span>
+                        [[${companyLogin.address.number}]], [[${companyLogin.address.street}]], [[${companyLogin.address.city}]], [[${companyLogin.address.country}]]
+                    </span>
+                </p>
+                <p><strong>Phone:</strong> [[${companyLogin.phone}]]</p>
+                <p><strong>Email:</strong> [[${companyLogin.email}]]</p>
+                <p><strong>Zipcode:</strong> [[${companyLogin.address.zipcode}]]</p>
+            </div>
+        </nav>
+        <!-- Main Content -->
+            <main class="col-md-10 offset-md-2 p-4">
+                <div class="container mt-5">
+                    <!-- Card hiển thị thông tin job -->
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h4 class="card-title" th:text="${job.jobName}">Job Name</h4>
+                            <p><strong>Job Description:</strong> <span th:text="${job.jobDesc}">Job Description Here</span></p>
+                            <p><strong>Job Skills:</strong>
+                                <span class="badge bg-primary me-2" th:each="skill : ${job.getJobSkills()}">
+                        [[${skill.skill.skillName}]] - Level [[${skill.skillLevel}]]
+                    </span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <!-- Bên trái -->
+                        <h5>Qualified Candidates</h5>
+
+                        <!-- Bên phải -->
+                        <form class="d-flex align-items-center" action="/jobs/job-detail-company" method="get">
+                            <input name="id" type="hidden" th:value="${job.id}">
+                            <input name="action" value="filter" type="hidden">
+                            <label for="per" class="form-label me-2">Match Percentage:</label>
+                            <select id="per" class="form-select me-2" style="width: 150px;" name="per">
+                                <option value="50" th:selected="${per == 50}">50%</option>
+                                <option value="60" th:selected="${per == 60}">60%</option>
+                                <option value="70" th:selected="${per == 70}">70%</option>
+                                <option value="80" th:selected="${per == 80}">80%</option>
+                                <option value="90" th:selected="${per == 90}">90%</option>
+                            </select>
+                            <button type="submit" class="btn btn-primary">Filter</button>
+                        </form>
+                    </div>
+
+                    <!-- Table hiển thị thông tin ứng viên -->
+                    <div class="table-responsive"  style="height: 340px">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>Candidate Name</th>
+                                <th>Skills</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            <tr th:each="can: ${candidates.content}">
+                                <td>[[${can.fullName}]]</td>
+                                <td>
+                                    <span class="badge bg-secondary me-1" th:each="skill: ${can.getCandidateSkills()}">
+                                        [[${skill.skill.skillName}]] - Level [[${skill.skillLevel}]]
+                                    </span>
+                                </td>
+                                <td >[[${can.email}]]</td>
+                                <td >[[${can.phone}]]</td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </main>
+        <!-- Pagination -->'
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center" th:if="${candidates.totalPages > 1}"} >
+                <li class="page-item " th:classappend="${candidates.page == 0} ? 'disabled' : ''">
+                    <a class="page-link"  tabindex="-1"  th:href="@{|/jobs/job-detail-company?action=${action}&per=${per}&page=${candidates.page - 1}&size=${candidates.size}|}">Previous</a>
+                </li>
+                <li class="page-item"  th:class="${page == candidates.page} ? 'active'"  th:each="page: ${#numbers.sequence(0, candidates.totalPages - 1)}">
+                    <a id="page" class="page-link"th:value="${page}" th:text="${page + 1}" th:href="@{|/jobs/job-detail-company?action=${action}&per=${per}&page=${page}&size=${candidates.size}|}">
+
+                    </a></li>
+                <li class="page-item" th:classappend="${candidates.page == candidates.totalPages - 1} ? 'disabled'">
+                    <a class="page-link" id="next"   th:href="@{|/jobs/job-detail-company?action=${action}&per=${per}&page=${candidates.page + 1}&size=${candidates.size}|}">Next</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+<!-- Footer -->
+<div class="text-white mb-3 mb-md-0 bg-primary"
+     style="height: 60px; width: 100%; display: flex; justify-content: center; align-items: center;position: absolute; bottom: 0; left: 0; right: 0">
+    <span>Tran Thi Thanh Tuyen - 21020281 - thanhtuyen9623@gmail.com</span>
+</div>
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const colorClasses = ['bg-primary', 'bg-secondary', 'bg-success', 'bg-warning', 'bg-info', 'bg-dark'];
+        const badges = document.querySelectorAll('.badge');
+
+        badges.forEach(badge => {
+            const randomClass = colorClasses[Math.floor(Math.random() * colorClasses.length)];
+            badge.classList.add(randomClass);
+        });
+    });
+
+</script>
+</body>
+</html>

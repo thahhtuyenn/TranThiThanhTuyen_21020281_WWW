@@ -4,7 +4,9 @@ import org.mapstruct.*;
 import vn.edu.iuh.fit.thanhtuyen.backend.dtos.CandidateDto;
 import vn.edu.iuh.fit.thanhtuyen.backend.models.Candidate;
 
-@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING,
+        uses = {CandidateSkillMapper.class, ExperienceMapper.class}
+)
 public interface CandidateMapper {
     Candidate toEntity(CandidateDto candidateDto);
 

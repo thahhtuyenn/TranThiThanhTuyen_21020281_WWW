@@ -18,4 +18,5 @@ public class CandidateSkillDto implements Serializable {
     Long canId;
     String moreInfos;
     SkillLevel skillLevel;
+    SkillDto skill;
 }

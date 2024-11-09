@@ -4,7 +4,9 @@ import org.mapstruct.*;
 import vn.edu.iuh.fit.thanhtuyen.backend.dtos.JobDto;
 import vn.edu.iuh.fit.thanhtuyen.backend.models.Job;
 
-@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING,
+        uses = {JobSkillMapper.class, CompanyMapper.class}
+)
 public interface JobMapper {
     Job toEntity(JobDto jobDto);
 

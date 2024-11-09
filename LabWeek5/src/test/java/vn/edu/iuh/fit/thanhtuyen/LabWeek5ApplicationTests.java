@@ -11,10 +11,7 @@ import vn.edu.iuh.fit.thanhtuyen.backend.models.*;
 import vn.edu.iuh.fit.thanhtuyen.backend.repositories.*;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Locale;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
 
 @SpringBootTest
 class LabWeek5ApplicationTests {
@@ -85,17 +82,72 @@ class LabWeek5ApplicationTests {
 
     @Test
     void testInsertSkill(){
+
+        List<String> skills = List.of(
+                "Java",
+                "Python",
+                "SQL",
+                "JavaScript",
+                "HTML/CSS",
+                "React",
+                "Angular",
+                "Spring Boot",
+                "Node.js",
+                "C#",
+                "Ruby on Rails",
+                "Git",
+                "Docker",
+                "Kubernetes",
+                "AWS (Amazon Web Services)",
+                "Azure",
+                "Machine Learning",
+                "Data Analysis",
+                "Cloud Computing",
+                "Cybersecurity",
+                "RESTful API",
+                "Agile Methodology",
+                "DevOps",
+                "Jenkins",
+                "TypeScript",
+                "Swift",
+                "Kotlin",
+                "R (Programming Language)",
+                "MATLAB",
+                "Sass/Less",
+                "GraphQL",
+                "TensorFlow",
+                "Flask",
+                "Django",
+                "Vue.js",
+                "MongoDB",
+                "PostgreSQL",
+                "MySQL",
+                "Apache Kafka",
+                "Hadoop",
+                "Spark",
+                "Figma",
+                "UI/UX Design",
+                "Bootstrap",
+                "Tailwind CSS",
+                "Salesforce",
+                "Power BI",
+                "Tableau",
+                "Business Analysis",
+                "Quality Assurance",
+                "Unit Testing"
+        );
+
         Faker faker = new Faker(new Locale("en"));
         SkillType[] skillTypes = SkillType.values();
-        for (int i = 1; i < 50; i++) {
+        for (int i = 0; i < skills.size(); i++) {
             SkillType skillType = skillTypes[faker.random().nextInt(skillTypes.length)];
-            String skillName = faker.hacker().abbreviation();
+            String skillName = skills.get(i);
             String description = faker.lorem().sentence();
             skillRepository.save(Skill.builder()
                     .skillName(skillName)
                     .skillDescription(description)
                     .type(skillType)
-                    .id((long) i)
+                    .id((long) i + 1)
                     .build());
         }
     }
@@ -153,48 +205,48 @@ class LabWeek5ApplicationTests {
 
     @Test
     void testUpateCandidate(){
-        Faker faker = new Faker(new Locale("en"));
-        for (int i = 0; i < 100; i++){
-            Optional<Candidate> can = candidateRepository.findById((long) faker.random().nextInt(1, 100));
-            Candidate candidate = can.orElse(null);
-            SkillLevel[] skillLevels = SkillLevel.values();
-
-            if (candidate != null){
-                List<CandidateSkill> candidateSkills = candidate.getCandidateSkills();
-                Optional<Skill> skill = skillRepository.findById((long) faker.random().nextInt(1, 50));
-                Skill sk = skill.orElse(null);
-                if (sk != null){
-                    CandidateSkillId candidateSkillId = new CandidateSkillId(candidate.getId(), sk.getId());
-                    SkillLevel skillLevel = skillLevels[faker.random().nextInt(skillLevels.length)];
-                    String moreInfos = faker.lorem().sentence();
-                    CandidateSkill candidateSkill = CandidateSkill.builder()
-                            .id(candidateSkillId)
-                            .candidate(candidate)
-                            .skillLevel(skillLevel)
-                            .moreInfos(moreInfos)
-                            .build();
-                    candidateSkills.add(candidateSkill);
-                    candidate.setCandidateSkills(candidateSkills);
-                }
-            }
-        }
-
-//        Faker faker = new Faker();
-//        String[] skillLevels = {"ADVANCED", "BEGINER", "IMTERMEDIATE", "MASTER", "PROFESSIONAL"};
+//        Faker faker = new Faker(new Locale("en"));
+//        for (int i = 0; i < 100; i++){
+//            Optional<Candidate> can = candidateRepository.findById((long) faker.random().nextInt(1, 100));
+//            Candidate candidate = can.orElse(null);
+//            SkillLevel[] skillLevels = SkillLevel.values();
 //
-//        for (int i = 0; i < 250; i++) {
-//            String moreInfos = faker.lorem().sentence();
-//            String skillLevel = skillLevels[faker.number().numberBetween(0, skillLevels.length)];
-//            int skillId = faker.number().numberBetween(1, 50); // skill_id từ 1 đến 49
-//            int canId = faker.number().numberBetween(1, 100);  // can_id từ 1 đến 99
-//
-//            String insertStatement = String.format(
-//                    "INSERT INTO your_table_name (more_infos, skill_level, skill_id, can_id) VALUES ('%s', '%s', %d, %d);",
-//                    moreInfos, skillLevel, skillId, canId
-//            );
-//
-//            System.out.println(insertStatement);
+//            if (candidate != null){
+//                List<CandidateSkill> candidateSkills = candidate.getCandidateSkills();
+//                Optional<Skill> skill = skillRepository.findById((long) faker.random().nextInt(1, 50));
+//                Skill sk = skill.orElse(null);
+//                if (sk != null){
+//                    CandidateSkillId candidateSkillId = new CandidateSkillId(candidate.getId(), sk.getId());
+//                    SkillLevel skillLevel = skillLevels[faker.random().nextInt(skillLevels.length)];
+//                    String moreInfos = faker.lorem().sentence();
+//                    CandidateSkill candidateSkill = CandidateSkill.builder()
+//                            .id(candidateSkillId)
+//                            .candidate(candidate)
+//                            .skillLevel(skillLevel)
+//                            .moreInfos(moreInfos)
+//                            .build();
+//                    candidateSkills.add(candidateSkill);
+//                    candidate.setCandidateSkills(candidateSkills);
+//                }
+//            }
 //        }
+
+        Faker faker = new Faker();
+        SkillLevel[] skillLevels = SkillLevel.values();
+
+        for (int i = 0; i < 250; i++) {
+            String moreInfos = faker.lorem().sentence();
+            SkillLevel skillLevel = skillLevels[faker.random().nextInt(skillLevels.length)];
+            int skillId = faker.number().numberBetween(1, 52); // skill_id từ 1 đến 49
+            int canId = faker.number().numberBetween(1, 100);  // can_id từ 1 đến 99
+
+            String insertStatement = String.format(
+                    "INSERT INTO candidate_skill (more_infos, skill_level, skill_id, can_id) VALUES ('%s', '%s', %d, %d);",
+                    moreInfos, skillLevel, skillId, canId
+            );
+
+            System.out.println(insertStatement);
+        }
     }
 
     @Test
@@ -202,15 +254,15 @@ class LabWeek5ApplicationTests {
         Faker faker = new Faker();
         SkillLevel[] skillLevels = SkillLevel.values();
 
-        for (int i = 0; i < 250; i++) {
+        for (int i = 0; i < 200; i++) {
             String moreInfos = faker.lorem().sentence();
 
-            String skillLevel = skillLevels[faker.random().nextInt(skillLevels.length)].getValue();
-            int skillId = faker.number().numberBetween(1, 50); // skill_id từ 1 đến 49
-            int jobId = faker.number().numberBetween(1, 199);  // can_id từ 1 đến 99
+            int skillLevel = skillLevels[faker.random().nextInt(skillLevels.length)].getValue();
+            int skillId = faker.number().numberBetween(1, 52); // skill_id từ 1 đến 49
+            int jobId = faker.number().numberBetween(99, 199);  // can_id từ 1 đến 99
 
             String insertStatement = String.format(
-                    "INSERT INTO your_table_name (more_infos, skill_level, skill_id, job_id) VALUES ('%s', '%s', %d, %d);",
+                    "INSERT INTO job_skill (more_infos, skill_level, skill_id, job_id) VALUES ('%s', '%s', %d, %d);",
                     moreInfos, skillLevel, skillId, jobId
             );
 

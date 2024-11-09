@@ -4,19 +4,19 @@ import lombok.Getter;
 
 @Getter
 public enum SkillLevel {
-    MASTER("master"),
-    BEGINER("beginer"),
-    ADVANCED("advanced"),
-    PROFESSIONAL("professional"),
-    IMTERMEDIATE("imtermediate");
+    MASTER(1),
+    BEGINER(2),
+    ADVANCED(3),
+    PROFESSIONAL(4),
+    IMTERMEDIATE(5);
 
-    private String value;
-    SkillLevel(String value){
+    private Integer value;
+    SkillLevel(Integer value){
         this.value = value;
     }
 
     @Override
     public String toString() {
-        return value;
+        return value.toString();
     }
 }

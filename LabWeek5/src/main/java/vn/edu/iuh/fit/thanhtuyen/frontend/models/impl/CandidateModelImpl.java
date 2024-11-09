@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import vn.edu.iuh.fit.thanhtuyen.backend.dtos.CandidateDto;
 import vn.edu.iuh.fit.thanhtuyen.backend.dtos.CompanyDto;
+import vn.edu.iuh.fit.thanhtuyen.backend.dtos.PageDTO;
 import vn.edu.iuh.fit.thanhtuyen.backend.resources.CandidateResource;
 import vn.edu.iuh.fit.thanhtuyen.backend.utils.AppUtil;
 import vn.edu.iuh.fit.thanhtuyen.frontend.models.CandidateModel;
@@ -20,9 +21,6 @@ import java.util.List;
 
 @Component
 public class CandidateModelImpl implements CandidateModel {
-
-
-    private CandidateResource candidateResource = new CandidateResource();
 
     private final RestTemplate restTemplate = new RestTemplate();
 
@@ -65,7 +63,15 @@ public class CandidateModelImpl implements CandidateModel {
         ResponseEntity<CandidateDto> response = restTemplate.exchange(url, HttpMethod.GET, null,
                 new ParameterizedTypeReference<CandidateDto>() {
                 });
-        System.out.println(response.getBody());
+        return response.getBody();
+    }
+
+    @Override
+    public PageDTO<CandidateDto> getCandidateMatchWithJob(Long jobId, int per, int page, int size) {
+        String url = AppUtil.CANDIDATES_API + "/candidateMatchingJob?jobId=" + jobId + "&per=" + per + "&page=" + page + "&size=" + size;
+        ResponseEntity<PageDTO<CandidateDto>> response = restTemplate.exchange(url, HttpMethod.GET, null,
+                new ParameterizedTypeReference<PageDTO<CandidateDto>>() {
+                });
         return response.getBody();
     }
 }
