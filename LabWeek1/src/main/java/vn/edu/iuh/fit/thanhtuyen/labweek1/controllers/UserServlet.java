@@ -56,8 +56,6 @@ public class UserServlet extends HttpServlet {
             req.setAttribute("accountEdit", account);
             req.getRequestDispatcher("views/editUser.jsp").forward(req, resp);
         }
-
-        super.doGet(req, resp);
     }
 
     @Override
@@ -86,7 +84,18 @@ public class UserServlet extends HttpServlet {
             return grantAccess;
         }).collect(Collectors.toSet());
 
-        Account account = new Account(accountId, fullName, "123", email, phone, (byte) 1, grantAccesses);
+        Account account = session.getAttribute("accountEdit") != null ?
+                (Account) session.getAttribute("accountEdit")
+                : new Account();
+        if (action.equalsIgnoreCase("add")) {
+            account.setAccountId(accountId);
+            account.setPassword("123");
+            account.setStatus((byte) 1);
+        }
+        account.setFullName(fullName);
+        account.setEmail(email);
+        account.setPhone(phone);
+        account.setGrantAccesses(grantAccesses);
         accountService.save(account);
 
         List<Account> accounts = accountService.findAccountNotIsAdmin();
@@ -95,7 +104,5 @@ public class UserServlet extends HttpServlet {
         req.setAttribute("accounts", accounts);
         req.setAttribute("roles", roles);
         req.getRequestDispatcher("views/dashboard.jsp").forward(req, resp);
-
-        super.doPost(req, resp);
     }
 }

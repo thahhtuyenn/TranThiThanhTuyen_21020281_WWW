@@ -71,13 +71,7 @@ public class AccountRepositoryImpl implements AccountRepository {
             if(accountId == null){
                 em.persist(account);
             }else {
-                String query = "UPDATE account SET  full_name = ?, email = ?, phone = ? WHERE account_id = ?";
-                em.createNativeQuery(query)
-                        .setParameter(1, account.getFullName())
-                        .setParameter(2, account.getEmail())
-                        .setParameter(3, account.getPhone())
-                        .setParameter(4, account.getAccountId())
-                        .executeUpdate();
+                em.merge(account);
             }
 
             em.getTransaction().commit();

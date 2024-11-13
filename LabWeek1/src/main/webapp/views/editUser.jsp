@@ -19,7 +19,7 @@
     <h1>Edit user</h1>
     <form action="users" method="post">
         <c:if test="${not empty sessionScope.get('accountEdit')}">
-            <input type="hidden" name="accountId" value="${accountEdit.accountId}">
+            <input type="hidden" name="accountId" value="${accountEdit.getAccountId()}">
             <input type="hidden" name="action" value="edit">
         </c:if>
         <c:if test="${empty sessionScope.get('accountEdit')}">
