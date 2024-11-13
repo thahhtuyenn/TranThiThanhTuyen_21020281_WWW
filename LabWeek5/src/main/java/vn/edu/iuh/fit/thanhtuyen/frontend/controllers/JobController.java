@@ -45,6 +45,28 @@ public class JobController {
             session.removeAttribute("candidateLogin");
             return "redirect:/";
         }
+        List<JobSkillDto> jobSkills = job.getJobSkills();
+        List<CandidateSkillDto> candidateSkills = candidateLogin.getCandidateSkills();
+        List<SkillDto> skillCandNeed = new ArrayList<>();
+
+        for (JobSkillDto jobSkill : jobSkills) {
+            boolean isSkillHigherOrMissing = true;
+
+            for (CandidateSkillDto candidateSkill : candidateSkills) {
+                if (jobSkill.getSkill().getId().equals(candidateSkill.getSkill().getId())) {
+                    if (jobSkill.getSkillLevel().getValue() <= candidateSkill.getSkillLevel().getValue()) {
+                        isSkillHigherOrMissing = false;
+                    }
+                    break;
+                }
+            }
+
+            if (isSkillHigherOrMissing) {
+                skillCandNeed.add(jobSkill.getSkill());
+            }
+        }
+
+        model.addAttribute("skillCandNeed", skillCandNeed);
         model.addAttribute("job", job);
         model.addAttribute("candidateLogin", candidateLogin);
         return "jobs/job-detail-candidate";

@@ -46,12 +46,8 @@
                             </span></p>
 
                     <p><strong>Skills needed of candidate:</strong>
-                        <span th:each="canSkill: ${candidateLogin.getCandidateSkills()}">
-                            <span style="margin-left: 3px" class="badge rounded-pill"
-                                  th:each="jobSkill : ${job.getJobSkills()}"
-                                    th:if="${canSkill.skill.skillName == jobSkill.skill.skillName} ? false : true">
-                                [[${jobSkill.skill.skillName}]]
-                            </span>
+                        <span th:each="skill: ${skillCandNeed}" style="margin-left: 3px" class="badge rounded-pill">
+                            [[${skill.skillName}]]
                         </span>
 
                     </p>
