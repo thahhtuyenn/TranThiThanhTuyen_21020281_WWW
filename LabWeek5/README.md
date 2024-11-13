@@ -13,7 +13,7 @@
 ## 🛠 Hướng dẫn cài đặt
 ##### 1. Clone project từ github
 ```bash
-https://github.com/thahhtuyenn/TranThiThanhTuyen_21020281_WWW.git
+git clone https://github.com/thahhtuyenn/TranThiThanhTuyen_21020281_WWW.git
 ```
 ##### 2. Di chuyển đến thư mục LabWeek5 hoặc sử dụng intelij để mở thư mục LabWeek5
 ```bash
