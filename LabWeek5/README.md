@@ -30,6 +30,26 @@ mvn spring-boot:run
 ```bash
 http://localhost:8080
 ```
+### Tài khoản demo 
+** Đây chỉ là tài khoản tượng trưng để login demo ứng dụng, là 1 trong số các thông tin ứng viên / công ty được lưu trữ trong CSDL
+#### 1. Ứng viên
+- email
+```bash
+angelo.hermann@yahoo.com
+```
+- phone
+```bash
+(730) 215-4530
+```
+#### 2. Công ty
+- email
+```bash
+tanya.moen@hotmail.com
+```
+- phone
+```bash
+(689) 752-4159
+```
 ## Demo ứng dụng
 ![Demo](https://github.com/thahhtuyenn/TranThiThanhTuyen_21020281_WWW/blob/main/LabWeek5/demo/demo-www-lab5.gif)
 
