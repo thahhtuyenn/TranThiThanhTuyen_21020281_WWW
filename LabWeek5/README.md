@@ -44,11 +44,11 @@ jordan.becker@yahoo.com
 ```bash
 (469) 811-1135
 ```
-![Candidate login](https://github.com/thahhtuyenn/TranThiThanhTuyen_21020281_WWW/blob/main/LabWeek5/demo/gif/candidate-login.gif) \
-- Sau khi login, website hiển thị các công việc phù hợp với skill mà candidate có >= 50% số skill mà công việc yêu cầu, khi nhấn vào bất kỳ công việc nào thì sẽ hiển thị thông tin chi tiết, thông tin công ty đăng tuyển, các skill mà candidate cần trao dồi thêm. Cho phép candidate xem tất cả công việc khác. \
-![Candidate job detail](https://github.com/thahhtuyenn/TranThiThanhTuyen_21020281_WWW/blob/main/LabWeek5/demo/gif/candidate-show-detail-job-show-all.gif) \
-- Candidate có thể tìm kiếm công việc mong muốn theo từ khóa tên công việc nhập vào ô tìm kiếm. \
-![Candidate search](https://github.com/thahhtuyenn/TranThiThanhTuyen_21020281_WWW/blob/main/LabWeek5/demo/gif/candidate-search-job.gif) \
+![Candidate login](https://github.com/thahhtuyenn/TranThiThanhTuyen_21020281_WWW/blob/main/LabWeek5/demo/gif/candidate-login.gif) 
+- Sau khi login, website hiển thị các công việc phù hợp với skill mà candidate có >= 50% số skill mà công việc yêu cầu, khi nhấn vào bất kỳ công việc nào thì sẽ hiển thị thông tin chi tiết, thông tin công ty đăng tuyển, các skill mà candidate cần trao dồi thêm. Cho phép candidate xem tất cả công việc khác. 
+![Candidate job detail](https://github.com/thahhtuyenn/TranThiThanhTuyen_21020281_WWW/blob/main/LabWeek5/demo/gif/candidate-show-detail-job-show-all.gif) 
+- Candidate có thể tìm kiếm công việc mong muốn theo từ khóa tên công việc nhập vào ô tìm kiếm. 
+![Candidate search](https://github.com/thahhtuyenn/TranThiThanhTuyen_21020281_WWW/blob/main/LabWeek5/demo/gif/candidate-search-job.gif) 
 
 ## 🏢Demo company
 ** Login với tư cách company
