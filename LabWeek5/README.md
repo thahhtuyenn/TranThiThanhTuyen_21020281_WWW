@@ -45,10 +45,10 @@ jordan.becker@yahoo.com
 (469) 811-1135
 ```
 ![Candidate login](https://github.com/thahhtuyenn/TranThiThanhTuyen_21020281_WWW/blob/main/LabWeek5/demo/gif/candidate-login.gif) 
-** Sau khi login, website hiển thị các công việc phù hợp với skill mà candidate có >= 50% số skill mà công việc yêu cầu, khi nhấn vào bất kỳ công việc nào thì sẽ hiển thị thông tin chi tiết, thông tin công ty đăng tuyển, các skill mà candidate cần trao dồi thêm. Cho phép candidate xem tất cả công việc khác.
+- Sau khi login, website hiển thị các công việc phù hợp với skill mà candidate có >= 50% số skill mà công việc yêu cầu, khi nhấn vào bất kỳ công việc nào thì sẽ hiển thị thông tin chi tiết, thông tin công ty đăng tuyển, các skill mà candidate cần trao dồi thêm. Cho phép candidate xem tất cả công việc khác. 
 ![Candidate job detail](https://github.com/thahhtuyenn/TranThiThanhTuyen_21020281_WWW/blob/main/LabWeek5/demo/gif/candidate-show-detail-job-show-all.gif) 
-** Candidate có thể tìm kiếm công việc mong muốn theo từ khóa tên công việc nhập vào ô tìm kiếm.
-![Candidate search](https://github.com/thahhtuyenn/TranThiThanhTuyen_21020281_WWW/blob/main/LabWeek5/demo/gif/candidate-search-job.gif)
+- Candidate có thể tìm kiếm công việc mong muốn theo từ khóa tên công việc nhập vào ô tìm kiếm. 
+![Candidate search](https://github.com/thahhtuyenn/TranThiThanhTuyen_21020281_WWW/blob/main/LabWeek5/demo/gif/candidate-search-job.gif) 
 
 ## 🏢Demo company
 ** Login với tư cách company
@@ -61,14 +61,14 @@ un.durgan@hotmail.com
 (730) 235-8253
 ```
 ![Company login](https://github.com/thahhtuyenn/TranThiThanhTuyen_21020281_WWW/blob/main/LabWeek5/demo/gif/company-login.gif)
-** Sau khi login, website hiển thị trang chủ dành cho company, dánh ách công việc của company đã đăng, khi nhấn vào bất kỳ công việc, website hiển thị thông tin công việc và danh sách ứng viên phù hợp với công việc đó, mặc định mức độ phù hợp là 50%, company có thể filter ứng viên phù hợp với mức độ % cao hơn.
+- Sau khi login, website hiển thị trang chủ dành cho company, dánh ách công việc của company đã đăng, khi nhấn vào bất kỳ công việc, website hiển thị thông tin công việc và danh sách ứng viên phù hợp với công việc đó, mặc định mức độ phù hợp là 50%, company có thể filter ứng viên phù hợp với mức độ % cao hơn.
 ![Company job detail](https://github.com/thahhtuyenn/TranThiThanhTuyen_21020281_WWW/blob/main/LabWeek5/demo/gif/company-show-detail.gif)
-** Company có thể tìm kiếm công việc theo từ khóa tên công vệc.
+- Company có thể tìm kiếm công việc theo từ khóa tên công vệc.
 ![Company search](https://github.com/thahhtuyenn/TranThiThanhTuyen_21020281_WWW/blob/main/LabWeek5/demo/gif/company-search.gif)
-** Website cho phép company chỉnh sửa thông tin công việc đã đăng tuyển để phù hợp hơn với nhu cầu tuyển dụng.
+- Website cho phép company chỉnh sửa thông tin công việc đã đăng tuyển để phù hợp hơn với nhu cầu tuyển dụng.
 ![Company edit job](https://github.com/thahhtuyenn/TranThiThanhTuyen_21020281_WWW/blob/main/LabWeek5/demo/gif/company-edit-job.gif)
-** Website cho phép company đăng tuyển 1 công việc mới với các skill mong muốn.
-https://github.com/thahhtuyenn/TranThiThanhTuyen_21020281_WWW/blob/main/LabWeek5/demo/gif/company-create-job.gif
+- Website cho phép company đăng tuyển 1 công việc mới với các skill mong muốn.
+![Company add](https://github.com/thahhtuyenn/TranThiThanhTuyen_21020281_WWW/blob/main/LabWeek5/demo/gif/company-create-job.gif)
 ## Tác giả, liên hệ
 - Facebook: [Trần Thị Thanh Tuyền](https://www.facebook.com/thahhtuyenn090603)
 - Github: [@thahhtuyenn](https://github.com/thahhtuyenn)
