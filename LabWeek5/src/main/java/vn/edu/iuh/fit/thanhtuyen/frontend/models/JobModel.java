@@ -15,5 +15,6 @@ public interface JobModel {
     PageDTO<JobDto> getJobsByJobName(String jobName, int page, int size);
     PageDTO<JobDto> getJobsByCompanyId(Long companyId, int page, int size);
     PageDTO<JobDto> getJobsByCompanyAndJobName(Long companyId, String job, int page, int size);
+    JobDto saveJob(JobDto job);
 
 }

@@ -2,15 +2,16 @@ package vn.edu.iuh.fit.thanhtuyen.backend.resources;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import vn.edu.iuh.fit.thanhtuyen.backend.dtos.JobDto;
 import vn.edu.iuh.fit.thanhtuyen.backend.dtos.PageDTO;
 import vn.edu.iuh.fit.thanhtuyen.backend.services.JobService;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.Produces;
 import java.util.List;
 
 @RestController
@@ -18,6 +19,18 @@ import java.util.List;
 public class JobResource {
     @Autowired
     private JobService jobService;
+
+    @PostMapping("")
+    @Consumes(MediaType.APPLICATION_JSON_VALUE)
+    @Produces(MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<JobDto> createJob(@RequestBody JobDto jobDto) throws Exception {
+        try {
+            JobDto job = jobService.saveJob(jobDto);
+            return ResponseEntity.ok(job);
+        }catch (Exception e) {
+            throw new Exception  ("Error: " + e.getMessage(), e);
+        }
+    }
 
     @GET
     @RequestMapping("")

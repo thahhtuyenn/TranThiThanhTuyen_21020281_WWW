@@ -1,10 +1,7 @@
 package vn.edu.iuh.fit.thanhtuyen.backend.models;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import vn.edu.iuh.fit.thanhtuyen.backend.enums.SkillLevel;
 
 @Getter
@@ -13,17 +10,18 @@ import vn.edu.iuh.fit.thanhtuyen.backend.enums.SkillLevel;
 @NoArgsConstructor
 @Entity
 @Table(name = "job_skill")
+@Builder
 public class JobSkill {
     @EmbeddedId
     private JobSkillId id;
 
     @MapsId("jobId")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "job_id", nullable = false)
     private Job job;
 
     @MapsId("skillId")
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false, cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "skill_id", nullable = false)
     private Skill skill;
 

@@ -57,6 +57,9 @@ public class LoginController {
             }
         } else if(action.equals("logout")){
             session.removeAttribute("candidateLogin");
+            session.removeAttribute("companyLogin");
+            session.removeAttribute("adminLogin");
+            session.removeAttribute("jobSkills");
             return "redirect:/home";
         }
         return "login";

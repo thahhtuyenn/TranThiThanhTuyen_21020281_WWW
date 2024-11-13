@@ -13,6 +13,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Builder
 public class ExperienceDto implements Serializable {
     Long id;
     LocalDate toDate;

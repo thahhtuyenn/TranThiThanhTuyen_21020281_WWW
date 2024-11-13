@@ -13,6 +13,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Builder
 public class SkillDto implements Serializable {
     Long id;
     String skillDescription;

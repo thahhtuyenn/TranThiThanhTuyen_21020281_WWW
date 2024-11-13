@@ -12,7 +12,9 @@ public interface JobMapper {
 
     @AfterMapping
     default void linkJobSkills(@MappingTarget Job job) {
-        job.getJobSkills().forEach(jobSkill -> jobSkill.setJob(job));
+        if (job.getJobSkills() != null) {
+            job.getJobSkills().forEach(jobSkill -> jobSkill.setJob(job));
+        }
     }
 
     JobDto toDto(Job job);

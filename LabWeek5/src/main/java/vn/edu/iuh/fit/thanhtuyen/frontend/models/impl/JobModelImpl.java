@@ -1,16 +1,17 @@
 package vn.edu.iuh.fit.thanhtuyen.frontend.models.impl;
 
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import vn.edu.iuh.fit.thanhtuyen.backend.dtos.JobDto;
 import vn.edu.iuh.fit.thanhtuyen.backend.dtos.PageDTO;
-import vn.edu.iuh.fit.thanhtuyen.backend.resources.JobResource;
 import vn.edu.iuh.fit.thanhtuyen.backend.utils.AppUtil;
 import vn.edu.iuh.fit.thanhtuyen.frontend.models.JobModel;
 
+import javax.swing.text.html.parser.Entity;
 import java.util.List;
 
 @Component
@@ -94,6 +95,14 @@ public class JobModelImpl implements JobModel {
         String url = AppUtil.JOBS_API + "/searchForCompany?companyId=" + companyId + "&jobName=" + job + "&page=" + page + "&size=" + size;
         ResponseEntity<PageDTO<JobDto>> response = restTemplate.exchange(url, HttpMethod.GET, null,
                 new ParameterizedTypeReference<PageDTO<JobDto>>() {
+                });
+        return response.getBody();
+    }
+
+    @Override
+    public JobDto saveJob( JobDto job) {
+        ResponseEntity<JobDto> response = restTemplate.exchange(AppUtil.JOBS_API, HttpMethod.POST, new HttpEntity<>(job),
+                new ParameterizedTypeReference<JobDto>() {
                 });
         return response.getBody();
     }

@@ -70,4 +70,11 @@ public interface JobService {
      * @return Danh sách công việc
      */
     PageDTO<JobDto> getJobsByCompanyAndName(Long companyId, String name, int page, int size);
+
+    /**
+     * Lưu công việc
+     * @param jobDto: Thông tin công việc
+     * @return Thông tin công việc
+     */
+    JobDto saveJob(JobDto jobDto);
 }

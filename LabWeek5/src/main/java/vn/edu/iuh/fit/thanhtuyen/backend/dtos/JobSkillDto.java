@@ -13,6 +13,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Builder
 public class JobSkillDto implements Serializable {
     Long jobId;
     Long skillId;
