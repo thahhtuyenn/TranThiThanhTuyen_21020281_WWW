@@ -2,6 +2,7 @@ package vn.edu.iuh.fit.thanhtuyen.labweek2.backend.services;
 
 import vn.edu.iuh.fit.thanhtuyen.labweek2.backend.dtos.OrderDto;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface OrderService {
@@ -27,5 +28,10 @@ public interface OrderService {
      */
     OrderDto save(OrderDto order);
 
+    /**
+     * Lấy danh sách order theo employee
+     * @param employeeId: ma nhan vien
+     * @return danh sách order
+     */
     List<OrderDto> findByEmployee(Long employeeId);
  }

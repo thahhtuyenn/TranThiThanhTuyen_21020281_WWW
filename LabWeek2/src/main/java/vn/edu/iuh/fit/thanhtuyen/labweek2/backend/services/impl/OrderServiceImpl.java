@@ -66,7 +66,7 @@ public class OrderServiceImpl implements OrderService {
             orderE.setEmployee(employee);
         }
 
-        //Set mac dinhcho ngay tao hoa don la ngay hien tai
+        //Set mac dinh cho ngay tao hoa don la ngay hien tai
         orderE.setOrderDate(LocalDateTime.now());
         //set mac dinh khi tao order la chuua co chi tiet don hang de tranh loi
         orderE.setOrderDetails(new ArrayList<>());
