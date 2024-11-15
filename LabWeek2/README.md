@@ -63,9 +63,9 @@ http://localhost:8080/LabWeek2-1.0-SNAPSHOT/api/orders/{id}
 0376225886
 ```
 ![Login](https://github.com/thahhtuyenn/TranThiThanhTuyen_21020281_WWW/blob/main/LabWeek2/demo/gif/lab2-login-employee.gif)
-- Sau khi login website hiển thị các sản phẩm ra màn hình, nhân viên có thể chọn sản phẩm và số lượng sản phần 1 -10, nếu chọnt rùng thì giỏ hàng sẽ tăng số lượng sản phẩm đó lên 
+- Sau khi login website hiển thị các sản phẩm ra màn hình, nhân viên có thể chọn sản phẩm và số lượng sản phần 1 -10, nếu chọn trùng thì giỏ hàng sẽ tăng số lượng sản phẩm đó lên 
 ![Choose product](https://github.com/thahhtuyenn/TranThiThanhTuyen_21020281_WWW/blob/main/LabWeek2/demo/gif/lab2-choose-product.gif)
-- Cho phép người dùng remove sản phẩm nếu không cần thiết nữa và khi nhấn order sẽ chuyển sang trang đẻ lập hóa đơn
+- Cho phép người dùng remove sản phẩm nếu không cần thiết nữa và khi nhấn order sẽ chuyển sang trang để lập hóa đơn
 ![Remove product](https://github.com/thahhtuyenn/TranThiThanhTuyen_21020281_WWW/blob/main/LabWeek2/demo/gif/lab2-remove-product-order.gif)
 - Tìm kiếm khách hàng cũ bằng số điện thoại để phục vụ cho việc tích điểm
 ![Customer exists](https://github.com/thahhtuyenn/TranThiThanhTuyen_21020281_WWW/blob/main/LabWeek2/demo/gif/lab2-create-order-cust-exists.gif)
