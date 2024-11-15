@@ -57,7 +57,7 @@ http://localhost:8080/LabWeek2-1.0-SNAPSHOT/api/orders
 ```bash
 http://localhost:8080/LabWeek2-1.0-SNAPSHOT/api/orders/{id}
 ```
-### Ứng dụng cho phép nhân viên login vào vưới số điện thoại để tạo order trên giao diện website
+### Ứng dụng cho phép nhân viên login vào với số điện thoại để tạo order trên giao diện website
 - Số điện thoại demo
 ```bash
 0376225886
