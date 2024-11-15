@@ -22,16 +22,15 @@ public class ProductDto implements Serializable {
     private String unit;
     private List<ProductPriceDto> productPrices;
 
-    public double getPrice() {
-        double price = 0d;
-        if (productPrices != null) {
-            if (!productPrices.isEmpty()) {
-                price = productPrices.get(0).getPrice();
-            }
-        }
-
-        return price;
-    }
+//    public double getPrice() {
+//        double price = 0d;
+//        if (productPrices != null) {
+//            if (!productPrices.isEmpty()) {
+//                price = productPrices.get(0).getPrice();
+//            }
+//        }
+//        return price;
+//    }
 
     /**
      * Lấy giá mới nhất của sản phẩm
@@ -49,7 +48,6 @@ public class ProductDto implements Serializable {
                         ).collect(Collectors.toList()).get(0).getPrice();
             }
         }
-
         return price;
     }
 }
