@@ -11,7 +11,7 @@
 git clone https://github.com/thahhtuyenn/TranThiThanhTuyen_21020281_WWW.git
 ```
 ##### 2. Sử dụng intelij để mở project LabWeek2
-##### 3. Từ projectt LabWeek1, sử dụng file `database-lab-week-2.sql` để tạo các bảng
+##### 3. Từ projectt LabWeek2, sử dụng file `database-lab-week-2.sql` để tạo các bảng
 [Database](https://github.com/thahhtuyenn/TranThiThanhTuyen_21020281_WWW/blob/main/LabWeek2/database/database-lab-week-2.sql) hoặc `database/database-lab-week-2.sql` 
 ##### 4. Add payara server (6.19.0 - version được sử dụng để tạo ra project)
 ##### 5. Run project lên và sẽ tự nhảy sang trang login với đường dẫn `http://localhost:8080/LabWeek2-1.0-SNAPSHOT/login`
