@@ -1,5 +1,5 @@
 # 🗓 Lab week 2
-## 📝Project sử dụng rest API để kết nói CSDL và đưa ra dữ liệu mong muốn dưới dạng API, ở phía frontend có thể lấy dữ liệu thông qua API mà không phải liên kết trực tiếp đến tầng logic.
+## 📝Project sử dụng rest API để kết nối CSDL và đưa ra dữ liệu mong muốn dưới dạng API, ở phía frontend có thể lấy dữ liệu thông qua API mà không phải liên kết trực tiếp đến tầng logic.
 ## 🗞Nội dung của project
 ### REST API
 - Các thao tác CRUD cho các đối tượng, lập order. (dùng JPA).
