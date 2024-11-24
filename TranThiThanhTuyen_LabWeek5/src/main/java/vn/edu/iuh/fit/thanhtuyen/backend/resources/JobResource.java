@@ -1,7 +1,6 @@
 package vn.edu.iuh.fit.thanhtuyen.backend.resources;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,9 +9,7 @@ import vn.edu.iuh.fit.thanhtuyen.backend.dtos.PageDTO;
 import vn.edu.iuh.fit.thanhtuyen.backend.services.JobService;
 
 import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
 import javax.ws.rs.Produces;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/jobs")
@@ -20,10 +17,10 @@ public class JobResource {
     @Autowired
     private JobService jobService;
 
-    @PostMapping("")
+    @PostMapping
     @Consumes(MediaType.APPLICATION_JSON_VALUE)
     @Produces(MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<JobDto> createJob(@RequestBody JobDto jobDto) throws Exception {
+    public ResponseEntity<JobDto> saveJob(@RequestBody JobDto jobDto) throws Exception {
         try {
             JobDto job = jobService.saveJob(jobDto);
             return ResponseEntity.ok(job);
@@ -32,32 +29,28 @@ public class JobResource {
         }
     }
 
-    @GET
-    @RequestMapping("")
-    public ResponseEntity<List<JobDto>> getAllJobs() throws Exception {
-        try {
-            List<JobDto> jobs = jobService.getAllJobs();
-            return ResponseEntity.ok(jobs);
-        }catch (Exception e) {
-            throw new Exception  ("Error: " + e.getMessage(), e);
-        }
-    }
-
-    @GET
-    @RequestMapping("/paging")
-    public ResponseEntity<PageDTO<JobDto>> getJobsPaging(@RequestParam int page,@RequestParam int size) throws Exception {
+    @GetMapping
+    public ResponseEntity<PageDTO<JobDto>> getJobsPaging(@RequestParam int page, @RequestParam int size) throws Exception {
         try {
             PageDTO<JobDto> jobs = jobService.getJobsPaging(page, size);
             return ResponseEntity.ok(jobs);
         }catch (Exception e) {
             throw new Exception  ("Error: " + e.getMessage(), e);
         }
-
     }
 
-    @GET
-    @RequestMapping("/search")
-    public ResponseEntity<PageDTO<JobDto>> getJobsByCityAndJobName(@RequestParam String jobName, @RequestParam int page, int size) throws Exception {
+    @GetMapping("/{id}")
+    public ResponseEntity<JobDto> getJobById(@PathVariable Long id) throws Exception {
+        try {
+            JobDto job = jobService.getJobById(id);
+            return ResponseEntity.ok(job);
+        }catch (Exception e) {
+            throw new Exception  ("Error: " + e.getMessage(), e);
+        }
+    }
+
+    @GetMapping("/searchByJobName")
+    public ResponseEntity<PageDTO<JobDto>> getJobsByCityAndJobName(@RequestParam String jobName, @RequestParam int page, @RequestParam int size) throws Exception {
         try {
             PageDTO<JobDto> jobs = jobService.getJobsByName(jobName, page, size);
             return ResponseEntity.ok(jobs);
@@ -66,32 +59,7 @@ public class JobResource {
         }
     }
 
-    @GET
-    @RequestMapping("/id")
-    public ResponseEntity<JobDto> getJobById(@RequestParam Long id) throws Exception {
-        try {
-            JobDto job = jobService.getJobById(id);
-            return ResponseEntity.ok(job);
-        }catch (Exception e) {
-            throw new Exception  ("Error: " + e.getMessage(), e);
-        }
-
-    }
-
-    @GET
-    @RequestMapping("/countPage")
-    public ResponseEntity<Integer> countPageJobs(@RequestParam int size) throws Exception {
-        try {
-            int count = jobService.countPageJobs(size);
-            return ResponseEntity.ok(count);
-        }catch (Exception e) {
-            throw new Exception  ("Error: " + e.getMessage(), e);
-        }
-
-    }
-
-    @GET
-    @RequestMapping("/jobsMatchingCandidate")
+    @GetMapping("/jobsSuitableForCandidate")
     public ResponseEntity<PageDTO<JobDto>> getJobsMatchingCandidate(@RequestParam Long candidateId,@RequestParam int per,@RequestParam int page,@RequestParam int size) throws Exception {
         try {
             PageDTO<JobDto> jobs = jobService.getJobsMatchingCandidate(candidateId, per, page, size);
@@ -101,8 +69,7 @@ public class JobResource {
         }
     }
 
-    @GET
-    @RequestMapping("/jobsOfCompany")
+    @GetMapping("/getJobsByCompany")
     public ResponseEntity<PageDTO<JobDto>> getJobsOfCompany(@RequestParam Long companyId,@RequestParam int page,@RequestParam int size) throws Exception {
         try {
             PageDTO<JobDto> jobs = jobService.getJobsByCompanyId(companyId, page, size);
@@ -112,8 +79,7 @@ public class JobResource {
         }
     }
 
-    @GET
-    @RequestMapping("/searchForCompany")
+    @GetMapping("/searchJobsOfCompany")
     public ResponseEntity<PageDTO<JobDto>> getJobsByCompanyId(@RequestParam Long companyId, @RequestParam String jobName, @RequestParam int page, @RequestParam int size) throws Exception {
         try {
             PageDTO<JobDto> jobs = jobService.getJobsByCompanyAndName(companyId, jobName, page, size);
@@ -122,4 +88,5 @@ public class JobResource {
             throw new Exception  ("Error: " + e.getMessage(), e);
         }
     }
+
 }

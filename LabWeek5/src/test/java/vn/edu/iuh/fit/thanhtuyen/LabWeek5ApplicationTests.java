@@ -33,7 +33,7 @@ class LabWeek5ApplicationTests {
     void contextLoads() {
         Random rnd = new Random();
         Faker faker = new Faker(new Locale("en"));
-        for (int i = 1; i < 100; i++) {
+        for (int i = 1; i <= 100; i++) {
             String street = faker.address().streetName();
             String city = faker.address().city();
             String zip = faker.address().zipCode();
@@ -63,20 +63,20 @@ class LabWeek5ApplicationTests {
                     .build();
             candidateRepository.save(can);
 
-            String companyName = faker.company().name();
-            String compEmail = faker.internet().emailAddress();
-            String about = faker.company().bs();
-            String webUrl = faker.internet().url();
-            String compPhone = faker.phoneNumber().cellPhone();
-            Company comp = Company.builder()
-                    .compName(companyName)
-                    .email(compEmail)
-                    .about(about)
-                    .webUrl(webUrl)
-                    .phone(compPhone)
-                    .address(add)
-                    .build();
-            companyRepository.save(comp);
+//            String companyName = faker.company().name();
+//            String compEmail = faker.internet().emailAddress();
+//            String about = faker.company().bs();
+//            String webUrl = faker.internet().url();
+//            String compPhone = faker.phoneNumber().cellPhone();
+//            Company comp = Company.builder()
+//                    .compName(companyName)
+//                    .email(compEmail)
+//                    .about(about)
+//                    .webUrl(webUrl)
+//                    .phone(compPhone)
+//                    .address(add)
+//                    .build();
+//            companyRepository.save(comp);
         }
     }
 

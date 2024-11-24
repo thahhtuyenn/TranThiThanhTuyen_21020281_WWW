@@ -39,7 +39,9 @@
                 </div>
                 <div class="card-body">
                     <h4 class="card-title" th:text="${job.jobName}"></h4>
-                    <p><strong>Job Description:</strong> <span th:text="${job.jobDesc}"></span></p>
+                    <div style="display: flex"><strong>Job Description:</strong> <span> </span>
+                        <div style="display: flex" id="jobDesc" th:utext="${job.jobDesc}"></div>
+                    </div>
                     <p><strong>Job Skills:</strong> <span style="margin-left: 3px" class="badge rounded-pill"
                                                           th:each="skill: ${job.getJobSkills()}">
                                 [[${skill.skill.skillName}]] - Level [[${skill.skillLevel}]]

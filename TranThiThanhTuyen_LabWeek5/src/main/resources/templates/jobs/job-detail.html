@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Job detail</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" rel="stylesheet">
+    <style>
+        .icon-with-text {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card {
+            margin-bottom: 20px;
+        }
+
+        .badge-skill {
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+<!-- Header -->
+<header class="bg-primary text-white py-3">
+    <div class="container d-flex justify-content-between align-items-center">
+        <div style="display: flex">
+            <a class="btn btn-light" th:href="@{/}">Go back</a>
+            <h1 class="h3" style="margin-left: 30px">Job Detail</h1>
+        </div>
+        <div>
+            <a th:href="@{/login}" class="btn btn-outline-light me-2">Login</a>
+            <a class="btn btn-light">Register</a>
+        </div>
+    </div>
+</header>
+<!-- Main Body -->
+<main class="container my-4" th:object="${job}">
+    <!-- Job Title -->
+    <div class="icon-with-text mb-4">
+        <i class="fa-solid fa-briefcase fa-2x"></i>
+        <h2 class="mb-0" th:text="*{jobName}"></h2>
+    </div>
+
+    <div class="row">
+        <!-- Job Information Card -->
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h3>Job Information</h3>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        <strong>Description: </strong><span th:text="*{jobDesc}"></span>
+                    </p>
+                    <p class="card-text">
+                        <strong>Skills: </strong>
+                        <span style="margin-left: 3px" class="badge badge-skill"
+                              th:each="skill: *{jobSkills}">
+                                [[${skill.skill.skillName}]]
+                            </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Company Information Card -->
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="card-title">Company Information</h3>
+                </div>
+                <div class="card-body">
+
+                    <p class="icon-with-text">
+                        <i class="fa-solid fa-building"></i>
+                        <strong>Name: </strong> <span th:text="*{company.compName}"></span>
+                    </p>
+                    <p class="icon-with-text">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <strong>Address: </strong> <span>
+                        [[*{company.address.number}]], [[*{company.address.street}]], [[*{company.address.city}]], [[*{company.address.country}]] - Zipcode: [[*{company.address.zipcode}]]
+                    </span>
+                    </p>
+                    <p class="icon-with-text">
+                        <i class="fa-solid fa-envelope"></i>
+                        <strong>Email: </strong> <span th:text="*{company.email}"></span>
+                    </p>
+                    <p class="icon-with-text">
+                        <i class="fa-solid fa-phone"></i>
+                        <strong>Phone: </strong> <span th:text="*{company.phone}"></span>
+                    </p>
+                    <p class="icon-with-text">
+                        <i class="fa-solid fa-globe"></i>
+                        <strong>Website: </strong> <a href="#" target="_blank" th:text="*{company.webUrl}"></a>
+                    </p>
+                    <p class="icon-with-text">
+                        <i class="fa-solid fa-info-circle"></i>
+                        <strong>About: </strong> <span th:text="*{company.about}"></span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const colorClasses = ['bg-primary', 'bg-secondary', 'bg-success', 'bg-warning', 'bg-info', 'bg-dark'];
+        const badges = document.querySelectorAll('.badge');
+
+        badges.forEach(badge => {
+            const randomClass = colorClasses[Math.floor(Math.random() * colorClasses.length)];
+            badge.classList.add(randomClass);
+        });
+    });
+</script>
+</body>
+</html>
