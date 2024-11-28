@@ -38,10 +38,4 @@ public class CompanyServiceImpl implements CompanyService {
         companyRepository.save(companyEntity);
         return true;
     }
-
-    @Override
-    public CompanyDto findByEmail(String email) {
-        Company company = companyRepository.findByEmail(email);
-        return companyMapper.toDto(company);
-    }
 }

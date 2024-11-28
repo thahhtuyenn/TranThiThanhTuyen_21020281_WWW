@@ -6,13 +6,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" rel="stylesheet">
     <style>
-        .header {
-            background-color: #007bff;
-            color: white;
-            padding: 10px 20px;
-        }
-
-        .header .title {
+        .title {
             font-size: 1.5rem;
             text-decoration: none;
         }
@@ -42,63 +36,67 @@
 </head>
 <body>
 <!-- Header -->
-<header class="header d-flex justify-content-between align-items-center">
-    <a th:href="@{/candidates}" class="title text-white">Home Candidate</a>
-    <div class="d-flex align-items-center">
-        <span class="me-3">Welcome, <strong th:text="${candidateLogin.fullName}"></strong></span>
-        <form action="login" method="post">
-            <input type="hidden" name="action" value="logout">
-            <button type="submit" class="btn btn-light ">Logout</button>
-        </form>
+<header class="bg-primary text-white py-3">
+    <div class="container d-flex justify-content-between align-items-center">
+        <a th:href="@{/candidates}" class="title text-white">Tìm việc</a>
+        <div class="d-flex align-items-center">
+            <a class="me-3 text-white" style="text-decoration: none;" th:href="@{/candidates/edit-info}">
+                <strong th:text="${candidateLogin.fullName}"></strong>
+            </a>
+            <form th:action="@{/logout}" method="post">
+                <input type="hidden" name="action" value="logout">
+                <button type="submit" class="btn btn-light ">Đăng xuất</button>
+            </form>
+        </div>
     </div>
 </header>
 <!-- Search Form -->
 <div class="container my-4">
     <form class="d-flex" action="candidates" method="get">
         <input type="hidden" name="action" value="searchJob">
-        <input class="form-control me-2" type="search" placeholder="Search jobs..." aria-label="Search"
+        <input class="form-control me-2" type="search" placeholder="Tìm kiếm công việc..." aria-label="Search"
                name="jobNameSearch">
-        <button class="btn btn-primary" type="submit">Search</button>
+        <button class="btn btn-primary" type="submit">Tìm kiếm</button>
     </form>
 </div>
 <!-- Main Body -->
 <main class="container my-4">
+
     <!-- Job Recommended Section -->
-    <section class="job-section" th:if="${action == 'getAll'}">
-        <h3>Job Recommended</h3>
-        <div class="row">
-            <!-- Job Card -->
-            <div class="col-md-4" th:each="jobRcm : ${jobRecommended.content}">
-                <div class="card shadow-sm">
-                    <div class="card-body">
-                        <h3 class="card-title mb-0">[[${jobRcm.jobName}]]</h3>
-                        <!-- Company Name with Icon -->
-                        <div class="icon-with-text">
-                            <i class="fa-solid fa-building"></i>
-                            <p class="card-text mb-0">[[${jobRcm.company.compName}]]</p>
-                        </div>
-                        <p class="card-text">
-                            <span style="margin-left: 3px" class="badge badge-skill"
-                                  th:each="skill: ${jobRcm.getJobSkills()}">
-                                [[${skill.skill.skillName}]]
-                            </span>
-                        </p>
-                        <div>
+        <section class="job-section" th:if="${action == 'getAll' && jobs.page == 0}" >
+            <h3>Công việc đề xuất cho bạn</h3>
+            <div class="row">
+                <!-- Job Card -->
+                <div class="col-md-4" th:each="jobRcm : ${jobRecommended.content}">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h3 class="card-title mb-0">[[${jobRcm.jobName}]]</h3>
+                            <!-- Company Name with Icon -->
+                            <div class="icon-with-text">
+                                <i class="fa-solid fa-building"></i>
+                                <p class="card-text mb-0">[[${jobRcm.company.compName}]]</p>
+                            </div>
+                            <p class="card-text">
+                                <span style="margin-left: 3px" class="badge badge-skill"
+                                      th:each="skill: ${jobRcm.getJobSkills()}">
+                                    [[${skill.skill.skillName}]]
+                                </span>
+                            </p>
+                            <div>
+                                <a th:href="@{|/candidates/show-job-detail?jobId=${jobRcm.id}|}" class="btn btn-link" style="text-decoration: none">
+                                    <i class="fa-solid fa-eye"></i>  Xem chi tiết</a>
+                            </div>
 
-                            <a th:href="@{|/candidates/show-job-detail?jobId=${jobRcm.id}|}" class="btn btn-link" style="text-decoration: none">
-                                <i class="fa-solid fa-eye"></i>  View detail job</a>
                         </div>
-
                     </div>
                 </div>
+                <!-- Repeat cards dynamically here -->
             </div>
-            <!-- Repeat cards dynamically here -->
-        </div>
-    </section>
+        </section>
 
     <!-- All Jobs Section -->
     <section class="job-section">
-        <h3>All Jobs</h3>
+        <h3>Tất cả công việc</h3>
         <div class="row">
             <!-- Job Card -->
             <div class="col-md-4" th:each="job : ${jobs.content}">
@@ -118,8 +116,8 @@
                         </p>
                         <div>
 
-                            <a th:href="@{|#|}" class="btn btn-link" style="text-decoration: none">
-                                <i class="fa-solid fa-eye"></i>  View detail job</a>
+                            <a th:href="@{|/candidates/show-job-detail?jobId=${job.id}|}" class="btn btn-link" style="text-decoration: none">
+                                <i class="fa-solid fa-eye"></i>  Xem chi tiết</a>
                         </div>
 
                     </div>
@@ -133,7 +131,7 @@
                 <ul class="pagination justify-content-center">
                     <li class="page-item " th:classappend="${jobs.page == 0} ? 'disabled' : ''">
                         <a class="page-link" tabindex="-1"
-                           th:href="@{|/candidates?page=${jobs.page - 1}&size=${jobs.size}|}">Previous</a>
+                           th:href="@{|/candidates?page=${jobs.page - 1}&size=${jobs.size}|}">Trang trước</a>
                     </li>
                     <li class="page-item" th:class="${page == jobs.page} ? 'active'"
                         th:each="page: ${#numbers.sequence(0, jobs.totalPages - 1)}">
@@ -142,18 +140,13 @@
 
                         </a></li>
                     <li class="page-item" th:classappend="${jobs.page == jobs.totalPages - 1} ? 'disabled'">
-                        <a class="page-link" id="next" th:href="@{|/candidates?page=${jobs.page + 1}&size=${jobs.size}|}">Next</a>
+                        <a class="page-link" id="next" th:href="@{|/candidates?page=${jobs.page + 1}&size=${jobs.size}|}">Trang tiếp theo</a>
                     </li>
                 </ul>
             </nav>
         </div>
     </section>
 </main>
-
-<!-- Footer -->
-<footer class="bg-light text-center py-3">
-    <p class="mb-0">© 2024 Home Candidate Page</p>
-</footer>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {

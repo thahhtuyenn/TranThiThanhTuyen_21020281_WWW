@@ -1,16 +1,24 @@
 package vn.edu.iuh.fit.thanhtuyen.backend.services.impl;
 
+import com.neovisionaries.i18n.CountryCode;
+import jakarta.transaction.Transactional;
+import net.datafaker.Faker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import vn.edu.iuh.fit.thanhtuyen.backend.dtos.CandidateDto;
+import vn.edu.iuh.fit.thanhtuyen.backend.dtos.CandidateSkillDto;
 import vn.edu.iuh.fit.thanhtuyen.backend.dtos.PageDTO;
 import vn.edu.iuh.fit.thanhtuyen.backend.mappers.CandidateMapper;
+import vn.edu.iuh.fit.thanhtuyen.backend.mappers.CandidateSkillMapper;
 import vn.edu.iuh.fit.thanhtuyen.backend.models.Candidate;
+import vn.edu.iuh.fit.thanhtuyen.backend.models.CandidateSkill;
 import vn.edu.iuh.fit.thanhtuyen.backend.repositories.CandidateRepository;
+import vn.edu.iuh.fit.thanhtuyen.backend.repositories.CandidateSkillRepository;
 import vn.edu.iuh.fit.thanhtuyen.backend.services.CandidateService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -21,6 +29,10 @@ public class CandidateServiceImpl implements CandidateService {
     private CandidateRepository candidateRepository;
     @Autowired
     private CandidateMapper candidateMapper;
+    @Autowired
+    private CandidateSkillMapper candidateSkillMapper;
+    @Autowired
+    private CandidateSkillRepository candidateSkillRepository;
 
     @Override
     public List<CandidateDto> getAll() {
@@ -36,8 +48,26 @@ public class CandidateServiceImpl implements CandidateService {
 
     @Override
     public CandidateDto save(CandidateDto candidateDto) {
+        //Get list of candidate skill
+        List<CandidateSkillDto> candidateSkillDto = candidateDto.getCandidateSkills();
+        //get candidate current to get username and password
+        Candidate candidateOld = candidateRepository.findById(candidateDto.getId()).orElse(new Candidate());
+        //Map candidateDto to candidate
         Candidate candidate = candidateMapper.toEntity(candidateDto);
-        candidate = candidateRepository.save(candidate);
+        //if candidate is exist, update candidate
+        if (candidateOld.getId() != null) {
+            candidate = candidateMapper.partialUpdate(candidateDto, candidateOld);
+        }
+        //set list of candidate skill is empty
+        candidate.setCandidateSkills(new ArrayList<>());
+        candidate = candidateRepository.saveAndFlush(candidate);
+
+        //save candidate skill
+        for (CandidateSkillDto skillDto : candidateSkillDto) {
+            CandidateSkill skill = candidateSkillMapper.toEntity(skillDto);
+            skill.setCandidate(candidate);
+            skill = candidateSkillRepository.saveAndFlush(skill);
+        }
         return candidateMapper.toDto(candidate);
     }
 
@@ -63,5 +93,25 @@ public class CandidateServiceImpl implements CandidateService {
         pageDTO.setSize(candidates.getSize());
         pageDTO.setPage(candidates.getNumber());
         return pageDTO;
+    }
+
+    @Override
+    @Transactional
+    public boolean removeCandidateSkill(Long candidateId, Long skillId) {
+        Optional<CandidateSkill> candidateSkill = candidateSkillRepository.findByCandidateIdAndSkillId(candidateId, skillId);
+        if (candidateSkill.isPresent()) {
+            candidateSkillRepository.removeByCandidateIdAndSkillId(candidateId, skillId);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public CandidateSkillDto addCandidateSkill(CandidateSkillDto candidateSkillDto) {
+        Candidate candidate =  candidateRepository.findById(candidateSkillDto.getCanId()).orElse(new Candidate());
+        CandidateSkill candidateSkill = candidateSkillMapper.toEntity(candidateSkillDto);
+        candidateSkill.setCandidate(candidate);
+        candidateSkill = candidateSkillRepository.saveAndFlush(candidateSkill);
+        return candidateSkillMapper.toDto(candidateSkill);
     }
 }

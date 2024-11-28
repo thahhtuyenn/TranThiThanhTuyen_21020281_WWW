@@ -2,10 +2,7 @@ package vn.edu.iuh.fit.thanhtuyen.backend.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.Hibernate;
 
 import java.io.Serializable;
@@ -16,6 +13,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @NoArgsConstructor
 @Embeddable
+@Builder
 public class CandidateSkillId implements Serializable {
     private static final long serialVersionUID = 957408093275494510L;
     @Column(name = "skill_id", nullable = false)

@@ -28,7 +28,7 @@ public class Address {
     @Column(name = "number", length = 20)
     private String number;
 
-    @Column(name = "zipcode", length = 7)
+    @Column(name = "zipcode", length = 15)
     private String zipcode;
 
     @OneToOne(mappedBy = "address", fetch = FetchType.LAZY)

@@ -13,15 +13,9 @@ public class CompanyModelImpl implements CompanyModel {
     private static final String API_URL = "http://localhost:9623/api/companies";
     private final RestTemplate restTemplate = new RestTemplate();
 
+
     @Override
-    public CompanyDto getCompanyByEmail(String email) {
-        ResponseEntity<CompanyDto> response = restTemplate.exchange(
-                API_URL + "?email=" + email,
-                HttpMethod.GET,
-                null,
-                new ParameterizedTypeReference<>() {
-                }
-        );
-        return response.getBody();
+    public CompanyDto getCompanyById(Long id) {
+        return null;
     }
 }

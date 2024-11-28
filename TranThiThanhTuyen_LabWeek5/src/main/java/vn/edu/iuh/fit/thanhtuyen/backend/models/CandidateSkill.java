@@ -16,12 +16,12 @@ public class CandidateSkill {
     private CandidateSkillId id;
 
     @MapsId("canId")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "can_id", nullable = false)
     private Candidate candidate;
 
     @MapsId("skillId")
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false, cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "skill_id", nullable = false)
     private Skill skill;
 

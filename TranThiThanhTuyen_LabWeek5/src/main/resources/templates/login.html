@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
@@ -24,25 +24,18 @@
 </head>
 <body>
 <div class="login-form">
-    <h2 class="text-center mb-3">Login</h2>
-    <form action="/login" method="post">
+    <h2 class="text-center mb-3">Đăng nhập</h2>
+    <form th:action="@{/do-login}" method="post" th:object="${user}">
         <input type="hidden" name="action" value="login">
         <!-- Email Input -->
         <div class="mb-3">
-            <label for="email" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
+            <label for="userName" class="form-label">Tên đăng nhập</label>
+            <input type="text" class="form-control" id="userName" th:field="*{username}" placeholder="Enter your username" required>
         </div>
-        <!-- Role Selection -->
         <div class="mb-3">
-            <label for="role" class="form-label">Login as</label>
-            <select class="form-select" id="role" name="role" required>
-                <option value="" selected disabled>Choose your role</option>
-                <option value="company">Company</option>
-                <option value="candidate">Candidate</option>
-                <option value="admin">Admin</option>
-            </select>
+            <label for="password" class="form-label">Mật khẩu</label>
+            <input type="password" class="form-control" id="password" th:field="*{password}" placeholder="Enter your password" required>
         </div>
-
         <!-- Submit Button -->
         <button type="submit" class="btn btn-primary w-100">Login</button>
     </form>

@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import vn.edu.iuh.fit.thanhtuyen.backend.models.JobSkill;
+import vn.edu.iuh.fit.thanhtuyen.backend.models.JobSkillId;
 
 import javax.ws.rs.QueryParam;
 

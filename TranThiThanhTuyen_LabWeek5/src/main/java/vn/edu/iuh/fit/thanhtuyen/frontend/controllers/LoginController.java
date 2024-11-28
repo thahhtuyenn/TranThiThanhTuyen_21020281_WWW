@@ -1,7 +1,9 @@
 package vn.edu.iuh.fit.thanhtuyen.frontend.controllers;
 
 import jakarta.servlet.http.HttpSession;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,9 +11,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import vn.edu.iuh.fit.thanhtuyen.backend.dtos.CandidateDto;
+import vn.edu.iuh.fit.thanhtuyen.backend.dtos.UserDto;
 import vn.edu.iuh.fit.thanhtuyen.frontend.models.CandidateModel;
 import vn.edu.iuh.fit.thanhtuyen.frontend.models.CompanyModel;
 
+import java.awt.print.Printable;
+import java.security.Principal;
+
+@Slf4j
 @Controller
 @RequestMapping("/login")
 public class LoginController {
@@ -21,30 +28,25 @@ public class LoginController {
     private CompanyModel companyModel;
 
     @GetMapping("")
-    public String login(){
+    public String login(Model model){
+        UserDto userDto = new UserDto();
+        model.addAttribute("user", userDto);
         return "login";
     }
 
-    @PostMapping("")
-    public String doLogin(Model model, HttpSession session,
-                          @RequestParam(value = "email", required = false) String email,
-                          @RequestParam(value = "role", required = false) String role,
-                          @RequestParam(value = "action", required = false) String action){
-        if(action.equals("login")){
-            if(role.equals("candidate")){
-                CandidateDto candidateLogin = candidateModel.getCandidateByEmail(email);
-                if(candidateLogin != null){
-                    session.setAttribute("candidateLogin", candidateLogin);
-                    return "redirect:/candidates";
-                }
-            }
-        } else if (action.equals("logout")) {
-            session.removeAttribute("candidateLogin");
-            session.removeAttribute("companyLogin");
-            session.removeAttribute("adminLogin");
-            session.removeAttribute("jobSkills");
-            return "redirect:/dashboard";
+    @GetMapping("/check-role")
+    public String checkRole(Principal principal){
+        Authentication authentication = (Authentication) principal;
+        if (authentication.getAuthorities().stream()
+                .anyMatch(auth -> auth.getAuthority().equals("CANDIDATE"))) {
+            return "redirect:/candidates"; // URL dành cho candidate
+        } else if (authentication.getAuthorities().stream()
+                .anyMatch(auth -> auth.getAuthority().equals("COMPANY"))) {
+            return "redirect:/companies"; // URL dành cho company
+        } else if (authentication.getAuthorities().stream()
+                .anyMatch(auth -> auth.getAuthority().equals("ADMIN"))) {
+            return "redirect:/admin"; // URL dành cho admin
         }
-        return "login";
+        return "redirect:/";
     }
 }

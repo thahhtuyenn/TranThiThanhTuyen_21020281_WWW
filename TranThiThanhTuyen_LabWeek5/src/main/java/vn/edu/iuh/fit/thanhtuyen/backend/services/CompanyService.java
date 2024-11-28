@@ -26,11 +26,4 @@ public interface CompanyService {
      * @return true nếu lưu thành công, false nếu lưu thất bại
      */
     boolean saveCompany(CompanyDto company);
-
-    /**
-     * Lấy thông tin công ty theo email
-     * @param email: email của công ty
-     * @return thông tin công ty
-     */
-    CompanyDto findByEmail(String email);
 }
