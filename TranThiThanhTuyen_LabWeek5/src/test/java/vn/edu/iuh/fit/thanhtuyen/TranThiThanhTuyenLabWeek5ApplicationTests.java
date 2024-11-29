@@ -116,9 +116,9 @@ class TranThiThanhTuyenLabWeek5ApplicationTests {
     void insertDataExperience() {
         Faker faker = new Faker(new Locale("vi"));
         Random random = new Random();
-        for (int i = 51; i <= 100; i++) {
+        for (int i = 51; i < 100; i++) {
             Optional<Candidate> can = candidateRepository.findById((long) i);
-            int sizeExp = random.nextInt(3, 6);
+            int sizeExp = random.nextInt(5, 10);
             for (int j = 0; j < sizeExp; j++) {
                 String companyName = faker.company().name();
                 LocalDate fromDate = faker.date().birthdayLocalDate(18, 60);
@@ -140,9 +140,9 @@ class TranThiThanhTuyenLabWeek5ApplicationTests {
                             .role(role)
                             .workDescription(description)
                             .candidate(candidate)
-                            .id((long) i)
+                            .id((long) 0)
                             .build();
-                    experienceRepository.save(exp);
+                    experienceRepository.saveAndFlush(exp);
                 }
             }
         }

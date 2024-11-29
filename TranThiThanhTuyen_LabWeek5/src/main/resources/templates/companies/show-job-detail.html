@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý công việc</title>
+    <!-- Link Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+<!-- Header -->
+<header class="bg-primary text-white py-3">
+    <div class="container d-flex justify-content-between align-items-center">
+        <div style="display: flex">
+            <a class="btn btn-light" th:href="@{/companies}">Quay lại</a>
+            <h1 class="h3" style="margin-left: 30px">Chi tiết công việc</h1>
+        </div>
+        <div class="d-flex align-items-center">
+            <span class="me-3 text-white" style="text-decoration: none;" th:text="${companyLogin.compName}"></span>
+            <form th:action="@{/logout}" method="post">
+                <input type="hidden" name="action" value="logout">
+                <button type="submit" class="btn btn-light ">Đăng xuất</button>
+            </form>
+        </div>
+    </div>
+</header>
+
+<!-- Main Body -->
+<div class="container my-4">
+    <!-- Card hiển thị công việc -->
+    <div class="card mb-4" th:object="${job}">
+        <div class="card-body">
+            <h5 class="card-title"><i class="fas fa-briefcase me-2"></i>[[*{jobName}]]</h5>
+            <!--            <p class="card-text" ><i class="fas fa-info-circle me-2"></i> Mô tả công việc:<span th:utext="*{jobDesc}"></span></p>-->
+            <div class="card-text">
+                <span><i class="fas fa-info-circle me-2"></i> Mô tả công việc:<span th:utext="*{jobDesc}"></span></span>
+            </div>
+            <p class="card-text"><i class="fas fa-tools me-2"></i>Kỹ năng yêu cầu:
+                <span style="margin-left: 3px" class="badge badge-skill"
+                      th:each="skill: *{jobSkills}">
+                      [[${skill.skill.skillName}]]
+                </span>
+            </p>
+        </div>
+    </div>
+
+    <!-- Form lọc ứng viên -->
+    <form class="mb-4" action="/companies/show-job-detail" method="get">
+        <input type="hidden" name="jobId" th:value="${job.id}">
+        <input type="hidden" name="action" value="filterCandidate">
+        <div class="row align-items-end">
+            <div class="col-md-4">
+                <label for="filterPercent" class="form-label">Lọc ứng viên phù hợp với công việc</label>
+                <select id="filterPercent" class="form-select" name="per">
+                    <option value="50" th:selected="${per == 50}">50%</option>
+                    <option value="60" th:selected="${per == 60}">60%</option>
+                    <option value="70" th:selected="${per == 70}">70%</option>
+                    <option value="80" th:selected="${per == 80}">80%</option>
+                    <option value="90" th:selected="${per == 90}">90%</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary w-100">Lọc</button>
+            </div>
+        </div>
+    </form>
+
+    <div>
+        <!-- Danh sách card ứng viên -->
+        <div class="row">
+            <div class="col-md-4 mb-3" th:each="cand : ${candidates.content}">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="fas fa-user me-2"></i><span th:text="${cand.fullName}"></span>
+                        </h5>
+                        <p class="card-text"><i class="fas fa-phone me-2"></i>[[${cand.phone}]]</p>
+                        <p class="card-text">
+                            <i class="fas fa-map-marker-alt me-2"></i>Địa chỉ: [[${cand.address.number}]],
+                            [[${cand.address.street}]], [[${cand.address.city}]].
+                        </p>
+                        <a th:href="@{|/companies/show-info-candidate-for-job?candidateId=${cand.id}&jobId=${job.id}|}" class="btn btn-info text-white"><i class="fas fa-eye me-2"></i>Xem thông tin ứng
+                            viên</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Pagination -->'
+        <div th:if="${candidates.totalPages > 1}">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item " th:classappend="${candidates.page == 0} ? 'disabled' : ''">
+                        <a class="page-link" tabindex="-1"
+                           th:href="@{|/companies/show-job-detail?jobId=${job.id}&page=${candidates.page - 1}&size=${candidates.size}|}">Trang
+                            trước</a>
+                    </li>
+                    <li class="page-item" th:class="${page == candidates.page} ? 'active'"
+                        th:each="page: ${#numbers.sequence(0, candidates.totalPages - 1)}">
+                        <a id="page" class="page-link" th:value="${page}" th:text="${page + 1}"
+                           th:href="@{|/companies/show-job-detail?jobId=${job.id}&page=${page}&size=${candidates.size}|}">
+
+                        </a></li>
+                    <li class="page-item" th:classappend="${candidates.page == candidates.totalPages - 1} ? 'disabled'">
+                        <a class="page-link" id="next"
+                           th:href="@{|/companies/show-job-detail?jobId=${job.id}&page=${candidates.page + 1}&size=${candidates.size}|}">Trang
+                            tiếp theo</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<!-- Link Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const colorClasses = ['bg-primary', 'bg-secondary', 'bg-success', 'bg-warning', 'bg-info', 'bg-dark'];
+        const badges = document.querySelectorAll('.badge');
+
+        badges.forEach(badge => {
+            const randomClass = colorClasses[Math.floor(Math.random() * colorClasses.length)];
+            badge.classList.add(randomClass);
+        });
+    });
+</script>
+</body>
+</html>

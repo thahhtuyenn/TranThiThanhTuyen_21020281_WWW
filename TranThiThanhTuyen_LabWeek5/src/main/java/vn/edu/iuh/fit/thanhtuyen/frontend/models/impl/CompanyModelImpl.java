@@ -16,6 +16,11 @@ public class CompanyModelImpl implements CompanyModel {
 
     @Override
     public CompanyDto getCompanyById(Long id) {
-        return null;
+        String url = API_URL + "/" + id;
+        ResponseEntity<CompanyDto> response = restTemplate.exchange(
+                url, HttpMethod.GET, null,
+                new ParameterizedTypeReference<CompanyDto>() {
+        });
+        return response.getBody();
     }
 }

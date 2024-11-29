@@ -14,6 +14,7 @@ import java.time.LocalDate;
 @Builder
 public class Experience {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "to_date")
     private LocalDate toDate;

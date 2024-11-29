@@ -1,6 +1,7 @@
 package vn.edu.iuh.fit.thanhtuyen.frontend.models;
 
 import vn.edu.iuh.fit.thanhtuyen.backend.dtos.JobDto;
+import vn.edu.iuh.fit.thanhtuyen.backend.dtos.JobSkillDto;
 import vn.edu.iuh.fit.thanhtuyen.backend.dtos.PageDTO;
 
 public interface JobModel {
@@ -11,4 +12,6 @@ public interface JobModel {
     PageDTO<JobDto> getJobsSuitableForCandidate(Long candidateId, int per, int page, int size);
     PageDTO<JobDto> getJobsByCompany(Long companyId, int page, int size);
     PageDTO<JobDto> getJobsByCompanyAndJobName(Long companyId, String jobName, int page, int size);
+    boolean removeJobSkill(Long jobId, Long skillId);
+    JobSkillDto addJobSkill(JobSkillDto jobSkillDto);
 }

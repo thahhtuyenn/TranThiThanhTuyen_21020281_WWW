@@ -5,6 +5,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vn.edu.iuh.fit.thanhtuyen.backend.dtos.JobDto;
+import vn.edu.iuh.fit.thanhtuyen.backend.dtos.JobSkillDto;
 import vn.edu.iuh.fit.thanhtuyen.backend.dtos.PageDTO;
 import vn.edu.iuh.fit.thanhtuyen.backend.services.JobService;
 
@@ -89,4 +90,24 @@ public class JobResource {
         }
     }
 
+    @GetMapping("remove-job-skill")
+    public ResponseEntity<Boolean> removeJobSkill(@RequestParam Long jobId, @RequestParam Long skillId) throws Exception {
+        try {
+            return ResponseEntity.ok(jobService.removeJobSkill(jobId, skillId));
+        }catch (Exception e) {
+            throw new Exception  ("Error: " + e.getMessage(), e);
+        }
+    }
+
+    @PostMapping("add-job-skill")
+    @Consumes(MediaType.APPLICATION_JSON_VALUE)
+    @Produces(MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<JobSkillDto> addJobSkill(@RequestBody JobSkillDto jobSkillDto) throws Exception {
+        try {
+            JobSkillDto jobSkill = jobService.addJobSkill(jobSkillDto);
+            return ResponseEntity.ok(jobSkill);
+        }catch (Exception e) {
+            throw new Exception  ("Error: " + e.getMessage(), e);
+        }
+    }
 }

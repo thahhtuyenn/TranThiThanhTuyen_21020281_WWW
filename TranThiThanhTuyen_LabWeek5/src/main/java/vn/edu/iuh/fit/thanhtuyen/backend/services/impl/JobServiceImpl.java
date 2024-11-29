@@ -1,10 +1,12 @@
 package vn.edu.iuh.fit.thanhtuyen.backend.services.impl;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import vn.edu.iuh.fit.thanhtuyen.backend.dtos.JobDto;
+import vn.edu.iuh.fit.thanhtuyen.backend.dtos.JobSkillDto;
 import vn.edu.iuh.fit.thanhtuyen.backend.dtos.PageDTO;
 import vn.edu.iuh.fit.thanhtuyen.backend.mappers.JobMapper;
 import vn.edu.iuh.fit.thanhtuyen.backend.mappers.JobSkillMapper;
@@ -36,16 +38,6 @@ public class JobServiceImpl implements JobService {
     @Autowired
     private SkillRepository skillRepository;
 
-
-    @Override
-    public List<JobDto> getAllJobs() {
-        List<Job> jobs = jobRepository.findAll();
-        if (jobs.isEmpty()) {
-            return new ArrayList<>();
-        }
-        return jobs.stream().map(jobMapper::toDto).collect(Collectors.toList());
-    }
-
     @Override
     public JobDto getJobById(Long id) {
         Optional<Job> job = jobRepository.findById(id);
@@ -75,11 +67,6 @@ public class JobServiceImpl implements JobService {
         pageDTO.setSize(jobs.getSize());
         pageDTO.setTotalPages(jobs.getTotalPages());
         return pageDTO;
-    }
-
-    @Override
-    public int countPageJobs(int size) {
-        return jobRepository.countPageJobs(size);
     }
 
     @Override
@@ -120,46 +107,6 @@ public class JobServiceImpl implements JobService {
 
     @Override
     public JobDto saveJob(JobDto jobDto) {
-//        //get jobSkills from jobDto
-//        List<JobSkillDto> jobSkillDtos = jobDto.getJobSkills();
-//        //set job skillDto = new ArrayList to avoid null pointer exception
-//        jobDto.setJobSkills(new ArrayList<>());
-//        if (jobDto.getId() == null || jobDto.getId() == 0) {
-//            jobDto.setId(0L);
-//        }
-//        //convert jobDto to job
-//        Job job = jobMapper.toEntity(jobDto);
-//        //insert job
-//        job = jobRepository.save(job);
-//        //delete jobSkills old by jobId if job has jobSkills not empty
-////        List<JobSkill> jobSkillsOld = jobSkillRepository.findAll();
-//        if (jobSkillRepository.existsByJobId(job.getId())) {
-//            jobSkillRepository.deleteByJobId(job.getId());
-//        }
-//
-//        //after insert job
-//        //set job for jobSkillDTOs
-//        for (JobSkillDto jobSkillDto : jobSkillDtos) {
-//           jobSkillDto.setJobId(job.getId());
-//
-//        }
-//        //convert jobSkillDTOs to jobSkills
-//        List<JobSkill> jobSkills = jobSkillDtos.stream().map(jobSkillMapper::toEntity).collect(Collectors.toList());
-//        List<JobSkill> jobSkillsTemp = new ArrayList<>();
-//        //insert jobSkills to database
-//        for (JobSkill jobSkill : jobSkills) {
-//            jobSkill.setJob(job);
-//            jobSkill = jobSkillRepository.saveAndFlush(jobSkill);
-//            jobSkillsTemp.add(jobSkill);
-//        }
-//        //set jobSkills for job
-//
-//        job.setJobSkills(jobSkillsTemp);
-//
-//        job = jobRepository.save(job);
-//        return jobMapper.toDto(job);
-
-
         Company company = companyRepository.findById(jobDto.getCompany().getId()).orElse(null);
         if (company == null) {
             return null;
@@ -193,5 +140,29 @@ public class JobServiceImpl implements JobService {
         job = jobRepository.findById(job.getId()).orElse(null);
 
         return jobMapper.toDto(job);
+    }
+
+    @Override
+    @Transactional
+    public boolean removeJobSkill(Long jobId, Long skillId) {
+        Optional<JobSkill> jobSkill = jobSkillRepository.findByJobIdAndSkillId(jobId, skillId);
+        if (jobSkill.isPresent()) {
+            jobSkillRepository.removeByJobIdAndSkillId(jobId, skillId);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public JobSkillDto addJobSkill(JobSkillDto jobSkillDto) {
+        Job job = jobRepository.findById(jobSkillDto.getJobId()).orElse(null);
+        JobSkill jobSkill = jobSkillMapper.toEntity(jobSkillDto);
+        if(job != null){
+            Skill skill = skillRepository.findById(jobSkillDto.getSkillId()).orElse(null);
+            jobSkill.setJob(job);
+            jobSkill.setSkill(skill);
+            jobSkill = jobSkillRepository.saveAndFlush(jobSkill);
+        }
+        return jobSkillMapper.toDto(jobSkill);
     }
 }

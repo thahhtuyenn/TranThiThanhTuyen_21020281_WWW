@@ -10,13 +10,14 @@ import vn.edu.iuh.fit.thanhtuyen.backend.models.JobSkill;
 import vn.edu.iuh.fit.thanhtuyen.backend.models.JobSkillId;
 
 import javax.ws.rs.QueryParam;
+import java.util.Optional;
 
 @Repository
 public interface JobSkillRepository extends JpaRepository<JobSkill, Long> {
     @Modifying
-    @Transactional
-    @Query("DELETE FROM JobSkill j WHERE j.job.id = :jobId")
-    void deleteByJobId(@Param("jobId") Long jobId);
+    @Query("DELETE FROM JobSkill j WHERE j.id.jobId = ?1 AND j.id.skillId = ?2")
+    void removeByJobIdAndSkillId(Long jobId, Long skillId);
 
-    boolean existsByJobId(Long id);
+    @Query("SELECT j FROM JobSkill j WHERE j.id.jobId = ?1 AND j.id.skillId = ?2")
+    Optional<JobSkill> findByJobIdAndSkillId(Long jobId, Long skillId);
 }
