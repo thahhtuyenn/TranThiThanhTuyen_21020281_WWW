@@ -4,4 +4,5 @@ import vn.edu.iuh.fit.thanhtuyen.backend.dtos.CompanyDto;
 
 public interface CompanyModel {
     CompanyDto getCompanyById(Long id);
+    CompanyDto saveCompany(CompanyDto company);
 }

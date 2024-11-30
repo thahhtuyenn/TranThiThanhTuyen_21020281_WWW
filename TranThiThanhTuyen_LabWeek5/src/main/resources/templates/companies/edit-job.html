@@ -46,7 +46,7 @@
             <a class="btn" th:href="@{/companies}">Trang Chủ</a>
             <a class="btn" th:href="@{/companies/job-manager}">Quản lý Việc Làm</a>
             <a class="btn btn-active" th:href="@{/companies/edit-job}">Đăng Tuyển</a>
-            <a class="btn">Thông Tin Công Ty</a>
+            <a class="btn" th:href="@{/companies/company-info}">Thông Tin Công Ty</a>
         </div>
         <div class="d-flex align-items-center">
             <span class="me-3 text-white" style="text-decoration: none;" th:text="${companyLogin.compName}"></span>
@@ -66,7 +66,8 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title"><i class="fas fa-info-circle me-2"></i>Thông Tin Công Việc</h5>
-                    <form action="#" th:object="${job}" method="post">
+                    <form th:action="@{/companies/save-job}" th:object="${job}" method="post">
+                        <input type="hidden" name="id" th:value="${job.id != null} ? ${job.id} : ''">
                         <div class="mb-3">
                             <label for="jobTitle" class="form-label"><i class="fas fa-clipboard me-2"></i>Tên Công Việc</label>
                             <input type="text" class="form-control" id="jobTitle" placeholder="Nhập tên công việc" name="jobName" th:value="${job.jobName}">
@@ -83,35 +84,32 @@
                 </div>
             </div>
         </div>
-
-
         <!-- Form Thêm Kỹ Năng -->
         <div class="col-md-6 mb-4">
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title"><i class="fas fa-plus-circle me-2"></i>Thêm Kỹ Năng</h5>
-                    <form>
+                    <form action="/companies/edit-job-skill" method="post">
                         <input type="hidden" name="action" value="addSkill">
-                        <input type="hidden" name="jobId" th:value="${job.id != null} ? ${job.id} : null">
+                        <input type="hidden" name="jobId" th:value="${job.id != null} ? ${job.id} : ''">
                         <div class="mb-3">
                             <label for="skillSelect" class="form-label"><i class="fas fa-tools me-2"></i>Kỹ Năng</label>
                             <select class="form-select" id="skillSelect" name="skill">
                                 <option value="" disabled selected>Chọn kỹ năng</option>
-                                <option th:each="skill : ${skills}" th:value="${skill.id}" th:text="${skill.skillName}"></option>
+                                <option th:each="skill : ${skills}" th:value="${skill.id}">[[${skill.id}]] - [[${skill.skillName}]]</option>
                             </select>
                         </div>
                         <div class="mb-3">
                             <label for="levelSelect" class="form-label"><i class="fas fa-layer-group me-2"></i>Mức Độ</label>
                             <select class="form-select" id="levelSelect" name="level">
-                                <option value="" disabled selected>Chọn mức độ</option>
-                                <option th:each="level : ${skillLevels}" th:value="${level.getValue()}" th:text="${level.getValue()}"></option>
+                                <option th:each="level : ${skillLevels}" th:value="${level.getValue()}">[[${level.getValue()}]]</option>
                             </select>
                         </div>
                         <div class="mb-3">
                             <label for="additionalInfo" class="form-label"><i class="fas fa-comment-dots me-2"></i>Thông Tin Thêm</label>
                             <input type="text" class="form-control" id="additionalInfo" placeholder="Nhập thông tin thêm" name="moreInfo">
                         </div>
-                        <button type="button" class="btn btn-success w-100"><i class="fas fa-plus me-2"></i>Thêm Kỹ Năng</button>
+                        <button type="submit" class="btn btn-success w-100"><i class="fas fa-plus me-2"></i>Thêm Kỹ Năng</button>
                     </form>
                 </div>
             </div>
@@ -138,10 +136,10 @@
                                 <td th:text="${jobSkill.skill.skillName}"></td>
                                 <td>Mức độ <span th:text="${jobSkill.skillLevel.getValue()}"></span></td>
                                 <td>
-                                    <form>
+                                    <form action="/companies/edit-job-skill" method="post">
                                         <input type="hidden" name="action" value="removeSkill">
                                         <input type="hidden" name="skillId" th:value="${jobSkill.skill.id}">
-                                        <input type="hidden" name="jobId" th:value="${job.id != null} ? ${job.id} : null">
+                                        <input type="hidden" name="jobId" th:value="${job.id != null} ? ${job.id} : ''">
                                         <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash me-1"></i>Xóa kỹ năng</button>
                                     </form>
                                 </td>

@@ -9,7 +9,6 @@ import org.springframework.web.client.RestTemplate;
 import vn.edu.iuh.fit.thanhtuyen.backend.dtos.JobDto;
 import vn.edu.iuh.fit.thanhtuyen.backend.dtos.JobSkillDto;
 import vn.edu.iuh.fit.thanhtuyen.backend.dtos.PageDTO;
-import vn.edu.iuh.fit.thanhtuyen.backend.utils.AppUtil;
 import vn.edu.iuh.fit.thanhtuyen.frontend.models.JobModel;
 
 @Component
@@ -19,7 +18,7 @@ public class JobModelImpl implements JobModel {
     @Override
     public JobDto saveJob(JobDto jobDto) {
         ResponseEntity<JobDto> response = restTemplate.exchange(
-                AppUtil.JOBS_API, HttpMethod.POST, new HttpEntity<>(jobDto),
+                API_URL, HttpMethod.POST, new HttpEntity<>(jobDto),
                 new ParameterizedTypeReference<JobDto>() {
                 });
         return response.getBody();

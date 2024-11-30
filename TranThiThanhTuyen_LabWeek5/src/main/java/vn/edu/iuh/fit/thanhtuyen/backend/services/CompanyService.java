@@ -25,5 +25,5 @@ public interface CompanyService {
      * @param company: thông tin công ty
      * @return true nếu lưu thành công, false nếu lưu thất bại
      */
-    boolean saveCompany(CompanyDto company);
+    CompanyDto saveCompany(CompanyDto company);
 }

@@ -107,38 +107,23 @@ public class JobServiceImpl implements JobService {
 
     @Override
     public JobDto saveJob(JobDto jobDto) {
-        Company company = companyRepository.findById(jobDto.getCompany().getId()).orElse(null);
-        if (company == null) {
-            return null;
-        }
-
-
+        List<JobSkillDto> jobSkillDtos = jobDto.getJobSkills();
         Job job = jobMapper.toEntity(jobDto);
-        job.setCompany(company);
-
-        Job finalJob = job;
-        List<JobSkill> jobSkills = job.getJobSkills().stream().map((jobSkill) -> {
-            Skill skill = skillRepository.findById(jobSkill.getSkill().getId()).orElse(null);
-
-            if(skill == null) return null;
-
-            return JobSkill.builder()
-                    .skillLevel(jobSkill.getSkillLevel())
-                    .job(finalJob)
-                    .moreInfos(jobSkill.getMoreInfos())
-                    .skill(skill)
-                    .id(
-                            JobSkillId.builder()
-                                    .jobId(finalJob.getId())
-                                    .skillId(skill.getId())
-                                    .build()
-                    ).build();
-        }).filter(Objects::nonNull).collect(Collectors.toList());
-
-        job.setJobSkills(jobSkills);
+        if (job.getId() != null){
+            Job jobOld = jobRepository.findById(job.getId()).orElse(null);
+            job = jobMapper.partialUpdate(jobDto, jobOld);
+        }
+        job.setJobSkills(new ArrayList<>());
         job = jobRepository.saveAndFlush(job);
-        job = jobRepository.findById(job.getId()).orElse(null);
 
+        for (JobSkillDto jobSkillDto : jobSkillDtos) {
+            JobSkill jobSkill = jobSkillMapper.toEntity(jobSkillDto);
+            Skill skill = skillRepository.findById(jobSkillDto.getSkillId()).orElse(null);
+            jobSkill.setJob(job);
+            jobSkill.getId().setJobId(job.getId());
+            jobSkill.setSkill(skill);
+            jobSkillRepository.saveAndFlush(jobSkill);
+        }
         return jobMapper.toDto(job);
     }
 

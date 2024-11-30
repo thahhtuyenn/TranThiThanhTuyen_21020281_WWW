@@ -31,7 +31,7 @@ public class Company extends User{
     private String webUrl;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "address", nullable = false)
+    @JoinColumn(name = "address")
     private Address address;
 
     @OneToMany(mappedBy = "company", fetch = FetchType.EAGER)

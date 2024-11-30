@@ -1,15 +1,13 @@
 package vn.edu.iuh.fit.thanhtuyen.frontend.controllers;
 
 import jakarta.servlet.http.HttpSession;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import vn.edu.iuh.fit.thanhtuyen.backend.configs.UserDetails;
 import vn.edu.iuh.fit.thanhtuyen.backend.dtos.*;
 import vn.edu.iuh.fit.thanhtuyen.backend.enums.SkillLevel;
@@ -22,7 +20,10 @@ import vn.edu.iuh.fit.thanhtuyen.frontend.models.SkillModel;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
+@Slf4j
 @Controller
 @RequestMapping("/companies")
 public class CompanyController {
@@ -165,7 +166,7 @@ public class CompanyController {
         return "companies/job-manager";
     }
 
-    @GetMapping("edit-job")
+    @GetMapping("/edit-job")
     @PreAuthorize("hasAuthority('COMPANY')")
     public String editJob(Model model, Principal principal, HttpSession session,
                           @RequestParam(value = "jobId", required = false) Long jobId) {
@@ -199,5 +200,128 @@ public class CompanyController {
         model.addAttribute("jobSkills", jobSkills);
         model.addAttribute("companyLogin", companyLogin);
         return "companies/edit-job";
+    }
+
+    @PostMapping("/edit-job-skill")
+    @PreAuthorize("hasAuthority('COMPANY')")
+    public String editJobSkill(Model model, HttpSession session, Principal principal,
+                               @RequestParam(value = "jobId", required = false) Long jobId,
+                               @RequestParam(value = "skill", required = false) Long skillAdd,
+                               @RequestParam(value = "level", required = false) Integer skillLevel,
+                               @RequestParam(value = "action", required = false) String action,
+                               @RequestParam(value = "moreInfo", required = false) String moreInfo,
+                               @RequestParam(value = "skillId", required = false) Long skillId) {
+        Authentication authentication = (Authentication) principal;
+        if (!authentication.isAuthenticated()) {
+            return "redirect:/login";
+        }
+        //skill of new job
+        List<JobSkillDto> jobSkills = (List<JobSkillDto>) session.getAttribute("jobSkills");
+        if (jobSkills == null){
+            jobSkills = new ArrayList<>();
+        }
+        if(action.equalsIgnoreCase("addSkill")){
+            SkillDto skillDto = skillModel.getSkillById(skillAdd);
+            SkillLevel level = SkillLevel.values()[skillLevel - 1];
+            JobSkillDto jobSkill = JobSkillDto.builder()
+                    .skillId(skillAdd)
+                    .skillLevel(level)
+                    .skill(skillDto)
+                    .moreInfos(moreInfo)
+                    .build();
+            if (jobId == null){
+                if (!jobSkills.contains(jobSkill)) {
+                    jobSkills.add(jobSkill);
+                }else {
+                    jobSkills = jobSkills.stream().map(js -> {
+                        if (js.getSkillId().equals(skillAdd)){
+                            js.setSkillLevel(level);
+                            js.setMoreInfos(moreInfo);
+                        }
+                        return js;
+                    }).collect(Collectors.toList());
+                }
+            }else {
+                JobDto job = jobModel.getJobById(jobId);
+                List<JobSkillDto> jobSkillsOld = job.getJobSkills();
+                jobSkill.setJobId(jobId);
+                if(!jobSkillsOld.contains(jobSkill)){
+                    jobSkill = jobModel.addJobSkill(jobSkill);
+                }else {
+                    boolean status = jobModel.removeJobSkill(jobId, skillAdd);
+                    if (status){
+                        jobSkill = jobModel.addJobSkill(jobSkill);
+                    }
+                }
+                if (jobSkill != null){
+                    return "redirect:/companies/edit-job?jobId=" + jobId;
+                }
+            }
+        } else if (action.equalsIgnoreCase("removeSkill")) {
+            if(jobId == null){
+                List<JobSkillDto> newJobSkills = new ArrayList<>();
+                for (JobSkillDto jobSkill : jobSkills){
+                    if (!Objects.equals(jobSkill.getSkillId(), skillId)){
+                        newJobSkills.add(jobSkill);
+                    }
+                }
+                jobSkills = newJobSkills;
+            }else {
+                boolean status = jobModel.removeJobSkill(jobId, skillId);
+                if (status){
+                    return "redirect:/companies/edit-job?jobId=" + jobId;
+                }
+            }
+        }
+        session.setAttribute("jobSkills", jobSkills);
+        return "redirect:/companies/edit-job";
+    }
+
+    @PostMapping("/save-job")
+    @PreAuthorize("hasAuthority('COMPANY')")
+    public String saveJob(HttpSession session, Principal principal,
+                          @ModelAttribute("job") JobDto job) {
+        Authentication authentication = (Authentication) principal;
+        if (!authentication.isAuthenticated()) {
+            return "redirect:/login";
+        }
+        CompanyDto companyLogin = (CompanyDto) session.getAttribute("companyLogin");
+        job.setCompany(companyLogin);
+        List<JobSkillDto> jobSkills = job.getJobSkills();
+        if (job.getId() == null){
+            jobSkills = (List<JobSkillDto>) session.getAttribute("jobSkills");
+        }else {
+            JobDto jobOld = jobModel.getJobById(job.getId());
+            jobSkills = jobOld.getJobSkills();
+        }
+        job.setJobSkills(jobSkills);
+        job = jobModel.saveJob(job);
+        if (job != null){
+            session.removeAttribute("jobSkills");
+        }
+        return "redirect:/companies";
+    }
+
+    @GetMapping("/company-info")
+    @PreAuthorize("hasAuthority('COMPANY')")
+    public String companyInfo(Model model, Principal principal, HttpSession session) {
+        Authentication authentication = (Authentication) principal;
+        if (!authentication.isAuthenticated()) {
+            return "redirect:/login";
+        }
+        Long companyId = ((UserDetails) authentication.getPrincipal()).getUser().getId();
+        CompanyDto company = companyModel.getCompanyById(companyId);
+        model.addAttribute("companyLogin", company);
+        return "companies/company-info";
+    }
+
+    @PostMapping("/save-company")
+    @PreAuthorize("hasAuthority('COMPANY')")
+    public String saveCompany(@ModelAttribute("company") CompanyDto company){
+        company = companyModel.saveCompany(company);
+        if (company != null){
+            return "redirect:/companies/company-info";
+        }
+        return "redirect:/companies";
     }
 }

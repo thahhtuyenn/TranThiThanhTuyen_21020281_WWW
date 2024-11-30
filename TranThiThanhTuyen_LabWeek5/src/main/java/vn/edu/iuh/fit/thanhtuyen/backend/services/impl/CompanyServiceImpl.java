@@ -33,9 +33,13 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    public boolean saveCompany(CompanyDto company) {
-        Company companyEntity = companyMapper.toEntity(company);
-        companyRepository.save(companyEntity);
-        return true;
+    public CompanyDto saveCompany(CompanyDto company) {
+        Company entity = companyMapper.toEntity(company);
+        Company entityOld = companyRepository.findById(company.getId()).orElse(new Company());
+        if (entity.getId() != null){
+            entity = companyMapper.partialUpdate(company, entityOld);
+        }
+        entity = companyRepository.saveAndFlush(entity);
+        return companyMapper.toDto(entity);
     }
 }

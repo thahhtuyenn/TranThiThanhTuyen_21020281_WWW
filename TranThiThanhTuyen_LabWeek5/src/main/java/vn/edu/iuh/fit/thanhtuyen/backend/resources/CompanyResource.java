@@ -21,4 +21,12 @@ public class CompanyResource {
         }
     }
 
+    @PostMapping
+    public  ResponseEntity<CompanyDto> saveCompany(@RequestBody CompanyDto company) throws Exception {
+        try {
+            return ResponseEntity.ok(companyService.saveCompany(company));
+        }catch (Exception e) {
+            throw new Exception("Error: " + e.getMessage(), e);
+        }
+    }
 }

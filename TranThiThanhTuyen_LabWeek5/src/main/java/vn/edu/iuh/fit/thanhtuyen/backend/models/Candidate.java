@@ -18,7 +18,7 @@ import java.util.Set;
 @SuperBuilder
 @PrimaryKeyJoinColumn(name = "can_id")
 public class Candidate extends User{
-    @Column(name = "dob", nullable = false)
+    @Column(name = "dob")
     private LocalDate dob;
 
     @Column(name = "email", nullable = false)
@@ -31,7 +31,7 @@ public class Candidate extends User{
     private String phone;
 
     @OneToOne(fetch = FetchType.EAGER, optional = false, cascade = CascadeType.ALL)
-    @JoinColumn(name = "address", nullable = false)
+    @JoinColumn(name = "address")
     private Address address;
 
     @OneToMany(mappedBy = "candidate", fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH, CascadeType.PERSIST, CascadeType.REMOVE})
