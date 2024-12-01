@@ -2,11 +2,13 @@ package vn.edu.iuh.fit.thanhtuyen.frontend.models.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import vn.edu.iuh.fit.thanhtuyen.backend.dtos.UserDto;
+import vn.edu.iuh.fit.thanhtuyen.backend.dtos.UserRegisterDto;
 import vn.edu.iuh.fit.thanhtuyen.frontend.models.UserModel;
 
 @Component
@@ -25,5 +27,18 @@ public class UserModelImpl implements UserModel {
                 }
         );
         return response.getBody();
+    }
+
+    @Override
+    public boolean register(UserRegisterDto userRegisterDto) {
+        String url = "http://localhost:9623/api/users/register";
+        ResponseEntity<Boolean> response = restTemplate.exchange(
+                url,
+                HttpMethod.POST,
+                new HttpEntity<>(userRegisterDto),
+                new ParameterizedTypeReference<Boolean>() {
+                }
+        );
+        return Boolean.TRUE.equals(response.getBody());
     }
 }

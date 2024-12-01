@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng ký tài khoản</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+<!-- Header -->
+<header class="bg-primary text-white py-3">
+    <div class="container d-flex justify-content-between align-items-center">
+        <h1 class="h3">Đăng ký tài khoản</h1>
+        <div>
+            <a th:href="@{/login}" class="btn btn-outline-light me-2">Đăng nhập</a>
+            <a th:href="@{/register}" class="btn btn-light">Đăng ký</a>
+        </div>
+    </div>
+</header>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form id="registerForm" th:action="@{/do-register}" method="post" th:object="${userRegister}">
+                <div class="mb-3">
+                    <label for="fullName" id="nameLabel" class="form-label">
+                        <i class="fas fa-user"></i> Họ và tên
+                    </label>
+                    <input th:field="*{fullName}"
+                           type="text" class="form-control" id="fullName" placeholder="Nhập họ và tên" required name="fullName">
+                    <label class="form-text text-danger d-none" id="fullNameError">Họ và tên không hợp lệ.</label>
+                </div>
+                <div class="mb-3">
+                    <label for="phoneNumber" class="form-label">
+                        <i class="fas fa-phone"></i> Số điện thoại
+                    </label>
+                    <input type="text" th:field="*{phone}"
+                           class="form-control" id="phoneNumber" placeholder="Nhập số điện thoại" required name="phone">
+                    <label class="form-text text-danger d-none" id="phoneError">Số điện thoại không hợp lệ.</label>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">
+                        <i class="fas fa-envelope"></i> Email
+                    </label>
+                    <input type="email" th:field="*{email}"
+                           class="form-control" id="email" placeholder="Nhập email" required name="email">
+                    <label class="form-text text-danger d-none" id="emailError">Email không hợp lệ.</label>
+                </div>
+                <div class="mb-3">
+                    <label for="username" class="form-label">
+                        <i class="fas fa-user-circle"></i> Tên đăng nhập
+                    </label>
+                    <input type="text" th:field="*{username}"
+                           class="form-control" id="username" placeholder="Nhập tên đăng nhập" required name="username">
+                    <label class="form-text text-danger d-none" id="usernameError">Tên đăng nhập không hợp lệ.</label>
+                    <label class="form-text text-danger" th:class="${messageUsername == ''} ? 'd-none' : ''" th:text="${messageUsername}"></label>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">
+                        <i class="fas fa-lock"></i> Mật khẩu
+                    </label>
+                    <input type="password" th:field="*{password}"
+                           class="form-control" id="password" placeholder="Nhập mật khẩu" required name="password">
+                    <label class="form-text text-danger d-none" id="passwordError">Mật khẩu không hợp lệ (ít nhất 6 ký tự).</label>
+                </div>
+                <div class="mb-3">
+                    <label for="confirmPassword" class="form-label">
+                        <i class="fas fa-lock"></i> Nhập lại mật khẩu
+                    </label>
+                    <input type="password" class="form-control" id="confirmPassword" placeholder="Nhập lại mật khẩu" required name="confirmPassword" th:field="*{confirmPassword}">
+                    <label class="form-text text-danger d-none" id="confirmPasswordError" th:class="${'messagePassword' == ''} ? 'd-none'" th:text="${messagePassword}"></label>
+                </div>
+                <div class="form-check mb-3">
+                    <input type="checkbox" class="form-check-input" id="isCompany" name="company" th:checked="*{company}">
+                    <label class="form-check-label" for="isCompany">Đăng ký tài khoản công ty</label>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Đăng ký</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Các regex kiểm tra
+    const regex = {
+        fullName: /^[\p{L} .'-]+$/u,
+        phone: /^\d{10,11}$/,
+        email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+        username: /^[a-zA-Z0-9_-]+\.*[a-zA-Z0-9_-]+$/,
+        password: /^.{6,}$/,
+    };
+
+    // Hàm kiểm tra dữ liệu và hiển thị lỗi
+    function validateField(input, regex, errorId, additionalCheck = null) {
+        const value = input.value.trim();
+        const errorLabel = document.getElementById(errorId);
+
+        if (regex && !regex.test(value)) {
+            errorLabel.classList.remove('d-none');
+        } else if (additionalCheck && !additionalCheck()) {
+            errorLabel.classList.remove('d-none');
+        } else {
+            errorLabel.classList.add('d-none');
+        }
+    }
+
+    // Xử lý sự kiện blur trên các input
+    document.getElementById('fullName').addEventListener('blur', function () {
+        validateField(this, regex.fullName, 'fullNameError');
+    });
+
+    document.getElementById('phoneNumber').addEventListener('blur', function () {
+        validateField(this, regex.phone, 'phoneError');
+    });
+
+    document.getElementById('email').addEventListener('blur', function () {
+        validateField(this, regex.email, 'emailError');
+    });
+
+    document.getElementById('username').addEventListener('blur', function () {
+        validateField(this, regex.username, 'usernameError');
+    });
+
+    document.getElementById('password').addEventListener('blur', function () {
+        validateField(this, regex.password, 'passwordError');
+    });
+</script>
+
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Custom Script -->
+<script>
+    document.getElementById('isCompany').addEventListener('change', function () {
+        const nameLabel = document.getElementById('nameLabel');
+        if (this.checked) {
+            nameLabel.innerHTML = '<i class="fas fa-building"></i> Tên công ty';
+        } else {
+            nameLabel.innerHTML = '<i class="fas fa-user"></i> Họ và tên';
+        }
+    });
+</script>
+</body>
+</html>

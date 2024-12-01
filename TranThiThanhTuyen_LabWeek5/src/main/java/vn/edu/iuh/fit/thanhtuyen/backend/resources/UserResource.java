@@ -2,12 +2,10 @@ package vn.edu.iuh.fit.thanhtuyen.backend.resources;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import vn.edu.iuh.fit.thanhtuyen.backend.dtos.JobDto;
 import vn.edu.iuh.fit.thanhtuyen.backend.dtos.UserDto;
+import vn.edu.iuh.fit.thanhtuyen.backend.dtos.UserRegisterDto;
 import vn.edu.iuh.fit.thanhtuyen.backend.services.UserService;
 
 @RestController
@@ -20,6 +18,16 @@ public class UserResource {
         try {
             UserDto user = userService.loadByUsername(username);
             return ResponseEntity.ok(user);
+        }catch (Exception e) {
+            throw new Exception  ("Error: " + e.getMessage(), e);
+        }
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<Boolean> registerUser(@RequestBody UserRegisterDto userRegisterDto) throws Exception {
+        try {
+            boolean result = userService.registerUser(userRegisterDto);
+            return ResponseEntity.ok(result);
         }catch (Exception e) {
             throw new Exception  ("Error: " + e.getMessage(), e);
         }

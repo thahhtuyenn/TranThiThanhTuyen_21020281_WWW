@@ -32,7 +32,7 @@ public class Company extends User{
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "address")
-    private Address address;
+    private Address address = new Address();
 
     @OneToMany(mappedBy = "company", fetch = FetchType.EAGER)
     private List<Job> jobs;

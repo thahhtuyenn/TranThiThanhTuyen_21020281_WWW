@@ -6,12 +6,6 @@ import java.util.List;
 
 public interface CompanyService {
     /**
-     * Lấy danh sách tất cả các công ty
-     * @return danh sách công ty
-     */
-    List<CompanyDto> getAllCompany();
-
-    /**
      * Lấy thông tin công ty theo id
      * @param id: id của công ty
      * @return thông tin công ty

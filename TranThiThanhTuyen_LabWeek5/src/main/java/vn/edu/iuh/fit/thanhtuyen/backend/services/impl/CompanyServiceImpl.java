@@ -1,5 +1,6 @@
 package vn.edu.iuh.fit.thanhtuyen.backend.services.impl;
 
+import com.neovisionaries.i18n.CountryCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import vn.edu.iuh.fit.thanhtuyen.backend.dtos.CompanyDto;
@@ -21,12 +22,6 @@ public class CompanyServiceImpl implements CompanyService {
     private CompanyMapper companyMapper;
 
     @Override
-    public List<CompanyDto> getAllCompany() {
-        List<Company> companies = companyRepository.findAll();
-        return companies.stream().map(companyMapper::toDto).collect(Collectors.toList());
-    }
-
-    @Override
     public CompanyDto getCompanyById(Long id) {
         Optional<Company> company = companyRepository.findById(id);
         return company.map(companyMapper::toDto).orElse(new CompanyDto());
@@ -39,6 +34,8 @@ public class CompanyServiceImpl implements CompanyService {
         if (entity.getId() != null){
             entity = companyMapper.partialUpdate(company, entityOld);
         }
+        CountryCode countryCode = entityOld.getAddress().getCountry();
+        entity.getAddress().setCountry(countryCode);
         entity = companyRepository.saveAndFlush(entity);
         return companyMapper.toDto(entity);
     }

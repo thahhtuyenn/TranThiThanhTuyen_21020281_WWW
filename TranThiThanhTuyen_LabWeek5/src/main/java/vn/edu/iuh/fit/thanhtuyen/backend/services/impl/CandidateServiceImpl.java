@@ -54,32 +54,24 @@ public class CandidateServiceImpl implements CandidateService {
         Candidate candidateOld = candidateRepository.findById(candidateDto.getId()).orElse(new Candidate());
         //Map candidateDto to candidate
         Candidate candidate = candidateMapper.toEntity(candidateDto);
+        CountryCode countryCode = candidateOld.getAddress().getCountry();
         //if candidate is exist, update candidate
         if (candidateOld.getId() != null) {
             candidate = candidateMapper.partialUpdate(candidateDto, candidateOld);
         }
+        candidate.getAddress().setCountry(countryCode);
         //set list of candidate skill is empty
         candidate.setCandidateSkills(new ArrayList<>());
         candidate = candidateRepository.saveAndFlush(candidate);
 
         //save candidate skill
-        for (CandidateSkillDto skillDto : candidateSkillDto) {
-            CandidateSkill skill = candidateSkillMapper.toEntity(skillDto);
-            skill.setCandidate(candidate);
-            skill = candidateSkillRepository.saveAndFlush(skill);
+        if(candidateSkillDto != null && !candidateSkillDto.isEmpty()){
+            for (CandidateSkillDto skillDto : candidateSkillDto) {
+                CandidateSkill skill = candidateSkillMapper.toEntity(skillDto);
+                skill.setCandidate(candidate);
+                skill = candidateSkillRepository.saveAndFlush(skill);
+            }
         }
-        return candidateMapper.toDto(candidate);
-    }
-
-    @Override
-    public List<CandidateDto> getCandidatePaging(int page, int size) {
-        Page<Candidate> candidates = candidateRepository.findAll(PageRequest.of(page, size));
-        return candidates.stream().map(candidateMapper::toDto).collect(Collectors.toList());
-    }
-
-    @Override
-    public CandidateDto findByEmail(String email) {
-        Candidate candidate = candidateRepository.findByEmail(email);
         return candidateMapper.toDto(candidate);
     }
 

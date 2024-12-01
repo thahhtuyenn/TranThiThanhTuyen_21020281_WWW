@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import vn.edu.iuh.fit.thanhtuyen.backend.dtos.CandidateDto;
 import vn.edu.iuh.fit.thanhtuyen.backend.dtos.UserDto;
+import vn.edu.iuh.fit.thanhtuyen.backend.models.User;
 import vn.edu.iuh.fit.thanhtuyen.frontend.models.CandidateModel;
 import vn.edu.iuh.fit.thanhtuyen.frontend.models.CompanyModel;
 

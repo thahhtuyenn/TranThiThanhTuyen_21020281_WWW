@@ -34,23 +34,6 @@ public interface CandidateService {
     CandidateDto save(CandidateDto candidateDto);
 
     /**
-     * Lấy thông tin ứng viên với paging, mỗi trang có số lượng ứng viên là size
-     *
-     * @param page: trang cần lấy
-     * @param size: số lượng ứng viên trên mỗi trang
-     * @return danh sách ứng viên trên trang cần lấy
-     */
-    List<CandidateDto> getCandidatePaging(int page, int size);
-
-    /**
-     * Lấy thông tin ứng viên theo email
-     *
-     * @param email: email ứng viên
-     * @return thông tin ứng viên có email tương ứng
-     */
-    CandidateDto findByEmail(String email);
-
-    /**
      * Lấy danh sách ứng viên phù hợp với công việc theo id công việc và % phù hợp
      *
      * @param jobId: id công việc

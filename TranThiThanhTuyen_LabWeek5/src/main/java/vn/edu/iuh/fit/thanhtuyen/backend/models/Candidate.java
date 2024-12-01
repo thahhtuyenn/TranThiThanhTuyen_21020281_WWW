@@ -30,9 +30,9 @@ public class Candidate extends User{
     @Column(name = "phone", nullable = false, length = 15)
     private String phone;
 
-    @OneToOne(fetch = FetchType.EAGER, optional = false, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "address")
-    private Address address;
+    private Address address = new Address();
 
     @OneToMany(mappedBy = "candidate", fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH, CascadeType.PERSIST, CascadeType.REMOVE})
     private List<CandidateSkill> candidateSkills;
