@@ -55,7 +55,7 @@
                     <input type="text" th:field="*{username}"
                            class="form-control" id="username" placeholder="Nhập tên đăng nhập" required name="username">
                     <label class="form-text text-danger d-none" id="usernameError">Tên đăng nhập không hợp lệ.</label>
-                    <label class="form-text text-danger" th:class="${messageUsername == ''} ? 'd-none' : ''" th:text="${messageUsername}"></label>
+                    <label class="form-text text-danger" th:class="${messageUsername == ''} ? 'd-none' : 'form-text text-danger'" th:text="${messageUsername}"></label>
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">
@@ -70,7 +70,7 @@
                         <i class="fas fa-lock"></i> Nhập lại mật khẩu
                     </label>
                     <input type="password" class="form-control" id="confirmPassword" placeholder="Nhập lại mật khẩu" required name="confirmPassword" th:field="*{confirmPassword}">
-                    <label class="form-text text-danger d-none" id="confirmPasswordError" th:class="${'messagePassword' == ''} ? 'd-none'" th:text="${messagePassword}"></label>
+                    <label class="form-text text-danger d-none" id="confirmPasswordError" th:class="${'messagePassword' == ''} ? 'd-none' : 'form-text text-danger'" th:text="${messagePassword}"></label>
                 </div>
                 <div class="form-check mb-3">
                     <input type="checkbox" class="form-check-input" id="isCompany" name="company" th:checked="*{company}">

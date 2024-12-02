@@ -97,7 +97,7 @@
                             <label for="skillSelect" class="form-label"><i class="fas fa-tools me-2"></i>Kỹ Năng</label>
                             <select class="form-select" id="skillSelect" name="skill">
                                 <option value="" disabled selected>Chọn kỹ năng</option>
-                                <option th:each="skill : ${skills}" th:value="${skill.id}">[[${skill.id}]] - [[${skill.skillName}]]</option>
+                                <option th:each="skill : ${skills}" th:value="${skill.id}">[[${skill.skillName}]]</option>
                             </select>
                         </div>
                         <div class="mb-3">

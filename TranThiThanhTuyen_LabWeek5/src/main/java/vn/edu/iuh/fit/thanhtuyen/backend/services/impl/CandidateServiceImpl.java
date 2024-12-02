@@ -54,10 +54,11 @@ public class CandidateServiceImpl implements CandidateService {
         Candidate candidateOld = candidateRepository.findById(candidateDto.getId()).orElse(new Candidate());
         //Map candidateDto to candidate
         Candidate candidate = candidateMapper.toEntity(candidateDto);
-        CountryCode countryCode = candidateOld.getAddress().getCountry();
+        CountryCode countryCode = CountryCode.VI;
         //if candidate is exist, update candidate
         if (candidateOld.getId() != null) {
             candidate = candidateMapper.partialUpdate(candidateDto, candidateOld);
+
         }
         candidate.getAddress().setCountry(countryCode);
         //set list of candidate skill is empty

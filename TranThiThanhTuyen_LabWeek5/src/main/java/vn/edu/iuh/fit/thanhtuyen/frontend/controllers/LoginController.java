@@ -29,7 +29,10 @@ public class LoginController {
     private CompanyModel companyModel;
 
     @GetMapping("")
-    public String login(Model model){
+    public String login(Model model, HttpSession session){
+        session.removeAttribute("userRegister");
+        session.removeAttribute("messageUsername");
+        session.removeAttribute("messagePassword");
         UserDto userDto = new UserDto();
         model.addAttribute("user", userDto);
         return "login";

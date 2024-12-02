@@ -159,7 +159,7 @@ public class CandidateController {
         if (action != null){
             if(action.equalsIgnoreCase("addSkill")){
                 SkillDto skillDto = skillModel.getSkillById(skill);
-                SkillLevel skillLevel = SkillLevel.values()[level];
+                SkillLevel skillLevel = SkillLevel.values()[level - 1];
                 CandidateSkillDto candidateSkillDto = CandidateSkillDto.builder()
                         .skillId(skillDto.getId())
                         .canId(candidateLogin.getId())
