@@ -71,6 +71,7 @@ public class CandidateController {
         model.addAttribute("jobs", jobs);
         model.addAttribute("action", action);
         model.addAttribute("jobRecommended", jobsRecommended);
+        model.addAttribute("jobNameSearch", jobName);
         return "candidates/home";
     }
 

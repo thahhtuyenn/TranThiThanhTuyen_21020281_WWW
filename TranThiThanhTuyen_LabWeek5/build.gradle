@@ -47,6 +47,8 @@ dependencies {
     implementation 'javax.ws.rs:javax.ws.rs-api:2.1.1'
     implementation 'net.datafaker:datafaker:2.4.1'
     implementation 'com.neovisionaries:nv-i18n:1.29'
+
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
 }
 
 tasks.named('test') {

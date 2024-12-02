@@ -51,6 +51,7 @@ public class HomeController {
             jobs = jobModel.getJobsByName(jobNameSearch, page, size);
         }
         model.addAttribute("jobs", jobs);
+        model.addAttribute("jobNameSearch", jobNameSearch);
         return "index";
     }
 

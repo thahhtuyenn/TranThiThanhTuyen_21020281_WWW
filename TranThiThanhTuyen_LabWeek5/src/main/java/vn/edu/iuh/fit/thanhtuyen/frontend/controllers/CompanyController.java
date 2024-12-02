@@ -72,6 +72,7 @@ public class CompanyController {
 
         model.addAttribute("jobs", jobs);
         model.addAttribute("companyLogin", companyLogin);
+        model.addAttribute("jobName", jobName);
         return "companies/home";
     }
 
@@ -163,6 +164,7 @@ public class CompanyController {
 
         model.addAttribute("jobs", jobs);
         model.addAttribute("companyLogin", companyLogin);
+        model.addAttribute("jobName", jobName);
         return "companies/job-manager";
     }
 
@@ -323,5 +325,30 @@ public class CompanyController {
             return "redirect:/companies/company-info";
         }
         return "redirect:/companies";
+    }
+
+    @PostMapping("/send-mail")
+    @PreAuthorize("hasAuthority('COMPANY')")
+    public String sendMail(@RequestParam("jobId") Long jobId, @RequestParam("candidateId") Long candidateId){
+        boolean status = companyModel.sendMail(jobId, candidateId);
+        if (status){
+            return "redirect:/companies/show-job-detail?jobId=" + jobId;
+        }
+        return "redirect:/companies";
+    }
+
+    @GetMapping("/show-all-mails")
+    @PreAuthorize("hasAuthority('COMPANY')")
+    public String showAllMails(Principal principal, Model model){
+        Authentication authentication = (Authentication) principal;
+        if (!authentication.isAuthenticated()) {
+            return "redirect:/login";
+        }
+        Long companyId = ((UserDetails) authentication.getPrincipal()).getUser().getId();
+        CompanyDto companyLogin = companyModel.getCompanyById(companyId);
+        List<MailDto> mails = companyModel.getMailsByCompanyId(companyId);
+        model.addAttribute("companyLogin", companyLogin);
+        model.addAttribute("mails", mails);
+        return "companies/show-all-mails";
     }
 }

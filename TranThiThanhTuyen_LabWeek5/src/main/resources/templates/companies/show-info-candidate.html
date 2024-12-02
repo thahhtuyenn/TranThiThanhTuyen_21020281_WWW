@@ -81,7 +81,11 @@
                     <p class="mb-4"><i class="fas fa-map-marker-alt me-2"></i>
                     <span>[[*{address.number}]], [[*{address.street}]], [[*{address.city}]]</span>
                     </p>
-                    <button class="btn btn-primary w-100"><i class="fas fa-paper-plane me-2"></i>Gửi mail tuyển dụng</button>
+                    <form action="/companies/send-mail" method="post">
+                        <input type="hidden" name="candidateId" th:value="*{id}">
+                        <input type="hidden" name="jobId" th:value="${jobId}">
+                        <button class="btn btn-primary w-100"><i class="fas fa-paper-plane me-2"></i>Gửi mail tuyển dụng</button>
+                    </form>
                 </div>
             </div>
         </div>

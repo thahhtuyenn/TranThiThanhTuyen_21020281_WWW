@@ -1,6 +1,7 @@
 package vn.edu.iuh.fit.thanhtuyen.backend.services;
 import vn.edu.iuh.fit.thanhtuyen.backend.dtos.JobDto;
 import vn.edu.iuh.fit.thanhtuyen.backend.dtos.JobSkillDto;
+import vn.edu.iuh.fit.thanhtuyen.backend.dtos.MailDto;
 import vn.edu.iuh.fit.thanhtuyen.backend.dtos.PageDTO;
 
 import java.util.List;
@@ -79,4 +80,11 @@ public interface JobService {
      * @return Thông tin kỹ năng
      */
     JobSkillDto addJobSkill(JobSkillDto jobSkillDto);
+
+    /**
+     * gửi email thông báo tuyển dụng cho candidate
+     * @param mailDto: Thông tin email
+     * @return true nếu gửi thành công, ngược lại false
+     */
+    boolean sendMail(MailDto mailDto);
 }

@@ -4,7 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vn.edu.iuh.fit.thanhtuyen.backend.dtos.CompanyDto;
+import vn.edu.iuh.fit.thanhtuyen.backend.dtos.MailDto;
 import vn.edu.iuh.fit.thanhtuyen.backend.services.CompanyService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/companies")
@@ -25,6 +28,15 @@ public class CompanyResource {
     public  ResponseEntity<CompanyDto> saveCompany(@RequestBody CompanyDto company) throws Exception {
         try {
             return ResponseEntity.ok(companyService.saveCompany(company));
+        }catch (Exception e) {
+            throw new Exception("Error: " + e.getMessage(), e);
+        }
+    }
+
+    @GetMapping("/{id}/mails")
+    public ResponseEntity<List<MailDto>> getMailsByCompanyId(@PathVariable Long id) throws Exception {
+        try {
+            return ResponseEntity.ok(companyService.getMailByCompany(id));
         }catch (Exception e) {
             throw new Exception("Error: " + e.getMessage(), e);
         }

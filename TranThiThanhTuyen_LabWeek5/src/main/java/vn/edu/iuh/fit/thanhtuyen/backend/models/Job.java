@@ -3,6 +3,7 @@ package vn.edu.iuh.fit.thanhtuyen.backend.models;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -31,4 +32,6 @@ public class Job {
     @OneToMany(mappedBy = "job", fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH, CascadeType.PERSIST, CascadeType.REMOVE})
     private List<JobSkill> jobSkills;
 
+    @OneToMany(mappedBy = "job", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    private List<Mail> mails = new ArrayList<>();
 }
