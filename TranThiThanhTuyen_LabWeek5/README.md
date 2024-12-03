@@ -82,48 +82,57 @@ Khi ứng viên nhấn chọn **Xem chi tiết**, trang web sẽ hiển thị c�
 Công ty có thể dễ dàng tìm kiếm các công việc tại trang chủ hoặc trong phần quản lý việc làm.
 
 - Trang chủ công ty
+
 ![Công ty - tìm kiếm](https://github.com/thahhtuyenn/TranThiThanhTuyen_21020281_WWW/blob/main/TranThiThanhTuyen_LabWeek5/demo/ct-tim-kiem.png)
 
 - Quản lý việc làm
+
 ![Công ty - tìm kiếm quản lý](https://github.com/thahhtuyenn/TranThiThanhTuyen_21020281_WWW/blob/main/TranThiThanhTuyen_LabWeek5/demo/ct-tim-kiem-quan-ly.png)
 
 ### 2. 💼 Trang chủ, Xem chi tiết công việc, Hiển thị ứng viên phù hợp và lọc theo %
 Khi nhấn vào chi tiết công việc, công ty có thể xem các ứng viên phù hợp với công việc và lọc ứng viên theo mức độ phù hợp.
 
 - Chi tiết công việc
+
 ![Công ty - chi tiết công việc](https://github.com/thahhtuyenn/TranThiThanhTuyen_21020281_WWW/blob/main/TranThiThanhTuyen_LabWeek5/demo/gif/ct-chi-tiet-cv-loc-uv.gif)
 
 ### 3. 👤 Xem hồ sơ ứng viên và gửi email mời ứng viên
 Công ty có thể xem thông tin ứng viên và gửi email mời họ ứng tuyển cho công việc hiện tại.
 
 - Xem hồ sơ và gửi email:
+
 ![Công ty - xem hồ sơ ứng viên](https://github.com/thahhtuyenn/TranThiThanhTuyen_21020281_WWW/blob/main/TranThiThanhTuyen_LabWeek5/demo/gif/ho-so-uv-gui-email.gif)
 
 - Email gửi cho ứng viên:
+
 ![Công ty - email](https://github.com/thahhtuyenn/TranThiThanhTuyen_21020281_WWW/blob/main/TranThiThanhTuyen_LabWeek5/demo/email.png)
 
 ### 4. 📧 Xem các email đã gửi đến các ứng viên
 Công ty có thể theo dõi các email đã gửi cho các ứng viên từ hệ thống.
 
 - Xem email đã gửi:
+
 ![Công ty - xem email đã gửi](https://github.com/thahhtuyenn/TranThiThanhTuyen_21020281_WWW/blob/main/TranThiThanhTuyen_LabWeek5/demo/gif/ct-email-da-gui.gif)
 
 ### 5.✏️ Cập nhật công việc đã đăng tuyển
 Công ty có thể dễ dàng cập nhật thông tin công việc đã đăng tuyển trên hệ thống.
 
 - Cập nhật công việc
+
 ![Công ty - cập nhật công việc](https://github.com/thahhtuyenn/TranThiThanhTuyen_21020281_WWW/blob/main/TranThiThanhTuyen_LabWeek5/demo/gif/ct-cap-nhat-cv.gif)
 
 ### 6. 📝 Đăng tuyển công việc mới với các kỹ năng mong muốn
 Công ty có thể đăng tuyển công việc mới và yêu cầu các kỹ năng mong muốn.
 
 - Đăng tuyển công việc
+
 ![Công ty - đăng tuyển](https://github.com/thahhtuyenn/TranThiThanhTuyen_21020281_WWW/blob/main/TranThiThanhTuyen_LabWeek5/demo/gif/ct-dang-tuyen.gif)
 
 ### 7. 🏢 Xem và cập nhật thông tin công ty
 Công ty có thể xem và cập nhật thông tin cá nhân của mình trên hệ thống.
 
 - Cập nhật thông tin công ty
+
 ![Công ty - thông tin công ty](https://github.com/thahhtuyenn/TranThiThanhTuyen_21020281_WWW/blob/main/TranThiThanhTuyen_LabWeek5/demo/gif/ct-cap-nhat-ca-nhan.gif)
 
 ---
