@@ -51,8 +51,27 @@
 ##### 4. Truy cập vào trang chủ qua địa chỉ: `http://localhost:9623/`.
 
 ## 📍 Giao diện Demo
-## 👩‍💻 *Chức năng dành cho Ứng viên*
+## 🏠 *Trang chủ - Ứng dụng: Không cần đăng nhập để xem công việc*
 
+#### 1. 🌐 Truy cập vào địa chỉ ứng dụng
+Sau khi truy cập vào địa chỉ ứng dụng: [http://localhost:9623/](http://localhost:9623/)
+- Trang chủ:
+
+![Trang chủ](https://github.com/thahhtuyenn/TranThiThanhTuyen_21020281_WWW/blob/main/TranThiThanhTuyen_LabWeek5/demo/trang-chu.png)
+
+#### 2. 🔍 Tìm kiếm việc làm tại trang chủ
+Người dùng có thể tìm kiếm các công việc mong muốn trực tiếp từ trang chủ ứng dụng.
+- Tìm kiếm - Trang chủ:
+
+![Tìm kiếm - trang chủ](https://github.com/thahhtuyenn/TranThiThanhTuyen_21020281_WWW/blob/main/TranThiThanhTuyen_LabWeek5/demo/tim-kiem-trang-chu.png)
+
+#### 3. 📄 Xem chi tiết công việc
+Khi nhấn vào "Xem chi tiết công việc", người dùng có thể xem thông tin chi tiết về công việc, bao gồm mô tả công việc, yêu cầu, và các kỹ năng cần thiết.
+- Chi tiết công việc - Trang chủ:
+
+![Chi tiết công việc - trang chủ](https://github.com/thahhtuyenn/TranThiThanhTuyen_21020281_WWW/blob/main/TranThiThanhTuyen_LabWeek5/demo/gif/chi-tiet-cv-trang-chu.gif)
+
+## 👩‍💻 *Chức năng dành cho Ứng viên*
 ### 1. 💼 Trang chủ Ứng viên và Chi tiết Công việc
 Sau khi đăng nhập, trang chủ ứng viên sẽ hiển thị các công việc đề xuất dành cho ứng viên. Ứng viên cũng có thể xem tất cả công việc trong danh sách.
 
