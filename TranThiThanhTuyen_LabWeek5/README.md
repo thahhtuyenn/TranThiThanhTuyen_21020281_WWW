@@ -6,6 +6,7 @@
 #### **Mã sinh viên**: 21020281  
 #### **Giảng viên hướng dẫn**: Võ Văn Hải
 #### **File báo cáo**: [Tại đây](https://github.com/thahhtuyenn/TranThiThanhTuyen_21020281_WWW/blob/main/TranThiThanhTuyen_LabWeek5/21020281_TranThiThanhTuyen_BaoCao.docx)
+#### **File PowerPoint**: [Tại đây]([https://github.com/thahhtuyenn/TranThiThanhTuyen_21020281_WWW/blob/main/TranThiThanhTuyen_LabWeek5/21020281_TranThiThanhTuyen_BaoCao.docx](https://github.com/thahhtuyenn/TranThiThanhTuyen_21020281_WWW/blob/main/TranThiThanhTuyen_LabWeek5/21020281_TranThiThanhTuyen.pptx))
 ---
 
 ## 📋 Nội dung bài làm
