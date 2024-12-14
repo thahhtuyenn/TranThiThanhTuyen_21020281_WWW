@@ -5,6 +5,7 @@
 #### **Họ tên**: Trần Thị Thanh Tuyền  
 #### **Mã sinh viên**: 21020281  
 #### **Giảng viên hướng dẫn**: Võ Văn Hải
+#### **Công nghệ**: Spring MVC, Spring Boot  
 #### **File báo cáo**: [Tại đây](https://github.com/thahhtuyenn/TranThiThanhTuyen_21020281_WWW/blob/main/TranThiThanhTuyen_LabWeek5/21020281_TranThiThanhTuyen_BaoCao.docx)
 #### **File PowerPoint**: [Tại đây](https://github.com/thahhtuyenn/TranThiThanhTuyen_21020281_WWW/blob/main/TranThiThanhTuyen_LabWeek5/21020281_TranThiThanhTuyen.pptx)
 ---
@@ -32,7 +33,9 @@
 
 ##### 7️⃣ Đề xuất kỹ năng bổ sung cho ứng viên  
 - Hệ thống **đề xuất các kỹ năng mới** cho ứng viên để cải thiện hồ sơ.
-
+---
+## Sơ đồ lớp
+![class diagram](https://github.com/thahhtuyenn/TranThiThanhTuyen_21020281_WWW/blob/main/TranThiThanhTuyen_LabWeek5/demo/ClassDiagram.jpg)
 ---
 
 ## 🌟 Demo chi tiết bài làm
